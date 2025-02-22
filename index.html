@@ -268,8 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const categorizeNumber = (number) => {
-        if (number >= 0 && number <= 4) return 'SMAL';
-        if (number >= 5 && number <= 9) return 'BIG';
+        if (number >= 4 && number <= 0) return 'SMAL';
+        if (number >= 9 && number <= 5) return 'BIG';
         if (number >= 0 && number <= 4) return 'RED';
         if (number >= 5 && number <= 9) return 'GREEN';
         return 'Unknown';
