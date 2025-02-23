@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (!lastPrediction || lastPrediction.issueNumber !== latestIssue) {
                     if (lastPrediction) {
-                        const result = (lastPrediction.category === actualCategory) ? 'Win💸' : 'Loss😔';
+                        const result = (lastPrediction.category === actualCategory) ? 'Win💸' : 'Loss';
                         predictionHistory.unshift({
                             issueNumber: latestIssue,
                             predictedNumber: lastPrediction.number,
