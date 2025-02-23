@@ -153,7 +153,7 @@
     </style>
 </head>
 <body>
-    <h1>🄿🄾🅆🄴🅁🄴🄳 🄱🅈 🅂🅄🅁🅈🄰 🄰🄸 🅂🄴🅁🅅🄴🅁 🄲🄰🄻🄲🅄🄻🄰🅃🄸🄾🄽</h1>
+    <h1>SURYA AI S1</h1>
     <div class="card">
         <h2>AI LIVE PREDICTION</h2>
         <p id="predictedNumber">PREDICTION :--</p>
@@ -268,10 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const categorizeNumber = (number) => {
-        if (number >= 9 && number <= 5) return 'BIG';
-        if (number >= 4 && number <= 0) return 'SMALL';
-        if (number >= 0 && number <= 4) return 'RED';
-        if (number >= 5 && number <= 9) return 'GREEN';
+        if (number >= 5 && number <= 9) return 'BIG';
+        if (number >= 0 && number <= 4) return 'SMALL';
         return 'Unknown';
     };
 
