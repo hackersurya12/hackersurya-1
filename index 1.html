@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ57Mkec8vl-6QiVzs8nsCXMSa82xwuLeKEIBvDdLif6UbM-CCO8tAsLFP&s=10'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+        }
+        .login-container {
+            background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+            padding: 20px;
+            width: 300px;
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function checkLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            
+            // Prevent empty fields
+            if (username.trim() === "" || password.trim() === "") {
+                alert("Please enter both username and password.");
+                return;
+            }
+
+            if (username === "9344" && password === "9344") {
+                window.location.href = "https://arunsurya111.github.io/Suryaak/";
+            } else {
+                alert("Invalid Username or Password🔐 Please buy username password from surya !");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>☣️ WELCOME TO BCA SURYA BABY AI S1 AI ☣️</h2>
+        <div>
+            <label>Username:</label>
+            <input type="text" id="username" placeholder="Enter username">
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" id="password" placeholder="Enter password">
+        </div>
+        <button onclick="checkLogin()">Login</button>
+    </div>
+</body>
+</html>
