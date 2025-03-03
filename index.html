@@ -268,8 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const categorizeNumber = (number) => {
-        if (number >= 0 && number <= 4) return 'Small';
-        if (number >= 5 && number <= 9) return 'Big';
+        if (number >= 0 && number <= 4) return 'SMALL 🟢','SMALL 🔴;
+        if (number >= 5 && number <= 9) return 'BIG 🟢','BIG 🔴';
         
         return 'Unknown';
     };
@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (!lastPrediction || lastPrediction.issueNumber !== latestIssue) {
                     if (lastPrediction) {
-                        const result = (lastPrediction.category === actualCategory) ? 'Win' : 'Loss';
+                        const result = (lastPrediction.category === actualCategory) ? '✔' : '❌';
                         predictionHistory.unshift({
                             issueNumber: latestIssue,
                             predictedNumber: lastPrediction.number,
