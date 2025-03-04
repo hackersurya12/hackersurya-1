@@ -3,154 +3,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALL GAME 1Min BY SURYA BCA</title>
     <script src="js/chart.js"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #333;
-            margin: 0;
-            padding: 0;
-            color: #fff;
-        }
-        h1, h2 {
-            color: #007bff;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .card {
-            max-width: 90%;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #444;
-            box-shadow: 3 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        #dataTable, #predictionHistoryTable {
-            width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #555;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid #666;
-        }
-        th {
-            background-color: #007bff;
-            color: black;
-            font-weight: bold;
-        }
-        td {
-            background-color: #666;
-        }
-        tr:nth-child(even) td {
-            background-color: #777;
-        }
-        tr:hover td {
-            background-color: #888;
-        }
-        #predictionChart {
-            width: 100%;
-            height: 250px; /* Fixed height */
-            border: 2px solid #007bff;
-            border-radius: 8px;
-            background-color: #555;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .pagination button {
-            padding: 10px 20px;
-            margin: 0 5px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: black;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .pagination button:hover {
-            background-color: #e6b800;
-            transform: scale(1.05);
-        }
-        .pagination button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        #timeRemaining {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-        }
-        #predictedNumber, #predictedPremium {
-            font-size: 18px;
-            text-align: center;
-            margin: 10px 0;
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .button-group a {
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none; /* Remove underline */
-            color: white; /* Text color */
-            display: inline-block; /* Make anchor behave like a button */
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        #registerButton {
-            background-color: #007bff; /* Blue for Register */
-        }
-        #telegramButton {
-            background-color: #dc3545; /* Red for Telegram */
-        }
-        .button-group a:hover {
-            transform: scale(1.05);
-        }
-        @media (max-width: 768px) {
-            .card {
-                padding: 15px;
-            }
-            th, td {
-                padding: 8px;
-                font-size: 14px;
-            }
-            #timeRemaining {
-                font-size: 20px;
-            }
-            #predictedNumber, #predictedPremium {
-                font-size: 16px;
-            }
-            #predictionChart {
-                height: 200px; /* Adjusted height for mobile */
-            }
-        }
-        @media (max-width: 480px) {
-            th, td {
-                font-size: 12px;
-            }
-            #timeRemaining {
-                font-size: 18px;
-            }
-            #predictedNumber, #predictedPremium {
-                font-size: 14px;
-            }
-            #predictionChart {
-                height: 180px; /* Further adjustment for very small screens */
-            }
-        }
-    </style>
+      <style>
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(to bottom, #060c21, #010107);
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+
+/* Headers */
+h1, h2 {
+    color: #00f7ff;
+    text-shadow: 0px 0px 25px rgba(0, 247, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+/* Cards */
+.card {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(25, 25, 55, 0.8);
+    backdrop-filter: blur(12px);
+    box-shadow: 0px 0px 25px rgba(0, 247, 255, 0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 35px rgba(0, 247, 255, 0.9);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 247, 255, 0.5);
+}
+
+th {
+    background: linear-gradient(90deg, #00f7ff, #008cff);
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    background-color: rgba(75, 75, 150, 0.7);
+}
+
+tr:nth-child(even) td {
+    background-color: rgba(90, 90, 150, 0.7);
+}
+
+tr:hover td {
+    background-color: rgba(0, 247, 255, 0.3);
+    box-shadow: 0px 0px 20px rgba(0, 247, 255, 0.6);
+}
+
+/* Timer */
+#timeRemaining {
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0px 0px 20px rgba(0, 247, 255, 0.9);
+    color: #00f7ff;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.button-group a {
+    padding: 14px 35px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    background: linear-gradient(45deg, #00f7ff, #008cff);
+    box-shadow: 0px 0px 25px rgba(0, 247, 255, 0.7);
+}
+
+.button-group a:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 40px rgba(0, 247, 255, 1);
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 12px 30px;
+    margin: 0 5px;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #00f7ff, #008cff);
+    color: black;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 20px rgba(0, 247, 255, 0.6);
+}
+
+.pagination button:hover {
+    background: linear-gradient(45deg, #ffcc00, #ff9900);
+    transform: scale(1.1);
+    box-shadow: 0px 0px 30px rgba(255, 204, 0, 0.8);
+}
+
+.pagination button:disabled {
+    background-color: rgba(120, 120, 180, 0.6);
+    cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .card {
+        padding: 15px;
+    }
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+    #timeRemaining {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        font-size: 12px;
+    }
+    #timeRemaining {
+        font-size: 20px;
+    }
+}
 </head>
 <body>
     <h1>SURYA AI S2</h1>
