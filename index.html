@@ -1,87 +1,98 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALL GAME 1Min BY SURYA</title>
+    <title>SURYA AI S3 ULTRA</title>
     <script src="js/chart.js"></script>
     <style>
+        /* Global Styles */
 body {
-    font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(to bottom, #060c21, #010107);
+    font-family: 'Poppins', sans-serif;
+    background-color: #0F172A;
     margin: 0;
     padding: 0;
-    color: #fff;
-    text-align: center;
+    color: #E5E7EB;
 }
 
-/* Headers */
 h1, h2 {
-    color: #00f7ff;
-    text-shadow: 0px 0px 25px rgba(0, 247, 255, 0.9);
+    color: #FFD700;
+    text-align: center;
+    margin-top: 20px;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    font-weight: 700;
 }
 
-/* Cards */
 .card {
     max-width: 90%;
     margin: 20px auto;
     padding: 20px;
-    border-radius: 15px;
-    background: rgba(25, 25, 55, 0.8);
-    backdrop-filter: blur(12px);
-    box-shadow: 0px 0px 25px rgba(0, 247, 255, 0.6);
-    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #1E293B, #0F172A);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transition: transform 0.3s ease;
 }
 
 .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 35px rgba(0, 247, 255, 0.9);
+    transform: translateY(-5px);
 }
 
-/* Table */
+#dataTable, #predictionHistoryTable {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1E293B;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-    border-radius: 10px;
-    overflow: hidden;
 }
 
 th, td {
     padding: 14px;
     text-align: center;
-    border-bottom: 1px solid rgba(0, 247, 255, 0.5);
+    font-size: 16px;
+    border-bottom: 1px solid #475569;
 }
 
 th {
-    background: linear-gradient(90deg, #00f7ff, #008cff);
-    color: #000;
+    background: #FFD700;
+    color: #0F172A;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 td {
-    background-color: rgba(75, 75, 150, 0.7);
+    background: #334155;
+    color: #E5E7EB;
 }
 
 tr:nth-child(even) td {
-    background-color: rgba(90, 90, 150, 0.7);
+    background: #475569;
 }
 
 tr:hover td {
-    background-color: rgba(0, 247, 255, 0.3);
-    box-shadow: 0px 0px 20px rgba(0, 247, 255, 0.6);
+    background: #64748B;
+    color: #FFD700;
+    transition: background 0.3s ease;
 }
 
-/* Timer */
 #timeRemaining {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: bold;
-    text-shadow: 0px 0px 20px rgba(0, 247, 255, 0.9);
-    color: #00f7ff;
+    text-align: center;
+    color: #FFD700;
 }
 
-/* Buttons */
+#predictedNumber, #predictedPremium {
+    font-size: 22px;
+    text-align: center;
+    margin: 10px 0;
+}
+
 .button-group {
     display: flex;
     justify-content: center;
@@ -90,24 +101,31 @@ tr:hover td {
 }
 
 .button-group a {
-    padding: 14px 35px;
-    border-radius: 12px;
+    padding: 12px 28px;
+    border-radius: 6px;
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
+    display: inline-block;
+    transition: all 0.3s ease;
     text-transform: uppercase;
-    transition: all 0.3s ease-in-out;
-    color: #fff;
-    background: linear-gradient(45deg, #00f7ff, #008cff);
-    box-shadow: 0px 0px 25px rgba(0, 247, 255, 0.7);
+}
+
+#registerButton {
+    background: #FFD700;
+    color: #0F172A;
+}
+
+#telegramButton {
+    background: #FFD700; /* Yellow color */
+    color: #0F172A; /* Dark text for contrast */
 }
 
 .button-group a:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 40px rgba(0, 247, 255, 1);
+    opacity: 0.8;
+    transform: scale(1.05);
 }
 
-/* Pagination */
 .pagination {
     display: flex;
     justify-content: center;
@@ -115,30 +133,27 @@ tr:hover td {
 }
 
 .pagination button {
-    padding: 12px 30px;
+    padding: 12px 24px;
     margin: 0 5px;
-    border-radius: 8px;
-    background: linear-gradient(45deg, #00f7ff, #008cff);
-    color: black;
+    border: none;
+    border-radius: 6px;
+    background: #FFD700;
+    color: #0F172A;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
     font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 0px 0px 20px rgba(0, 247, 255, 0.6);
 }
 
 .pagination button:hover {
-    background: linear-gradient(45deg, #ffcc00, #ff9900);
-    transform: scale(1.1);
-    box-shadow: 0px 0px 30px rgba(255, 204, 0, 0.8);
+    background: #E6B800;
+    transform: scale(1.05);
 }
 
 .pagination button:disabled {
-    background-color: rgba(120, 120, 180, 0.6);
+    background: #475569;
     cursor: not-allowed;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
     .card {
         padding: 15px;
@@ -148,7 +163,10 @@ tr:hover td {
         font-size: 14px;
     }
     #timeRemaining {
-        font-size: 24px;
+        font-size: 22px;
+    }
+    #predictedNumber, #predictedPremium {
+        font-size: 18px;
     }
 }
 
@@ -157,26 +175,28 @@ tr:hover td {
         font-size: 12px;
     }
     #timeRemaining {
-        font-size: 20px;
+        font-size: 18px;
+    }
+    #predictedNumber, #predictedPremium {
+        font-size: 16px;
     }
 }
-</style>
+    </style>
 </head>
 <body>
-    <h1>SURYA AI S3</h1>
+    <h1>SURYA AI S3 ULTRA</h1>
     <div class="card">
-        <h2>Live Prediction</h2>
-        <p id="predictedNumber">Prediction :--</p>
-        <p id="predictedPremium">Enjoy: --</p>
+        <h2>AI  LIVE PREDICTION</h2>
+        <p id="predictedNumber">PREDICTION: --</p>
+        <p id="predictedPremium">ENJOY: --</p>
     </div>
     <div class="card">
         <h2>Timer</h2>
         <p id="timeRemaining">--:--</p>
-        
-    <div class="button-group">
-        <a href= "https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm"registerButton" target="_blank">Register</a>
-        <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" id="telegramButton" target="_blank">Telegram</a>
-    </div>
+        <div class="button-group">
+            <a href="https://t.me/Suryarunl" id="registerButton" target="_blank">CONTACT</a>
+            <a href="https://t.me/+5Bj-TFqG_o5mZTM1" id="telegramButton" target="_blank">TELEGRAM</a>
+        </div>
     </div>
     <div class="card">
         <h2>Latest Data</h2>
@@ -189,13 +209,11 @@ tr:hover td {
                     <th>Premium</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Data rows will be inserted here -->
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
     <div class="card">
-        <h2>PREDICTION HISTORY</h2>
+        <h2>Prediction History</h2>
         <table id="predictionHistoryTable">
             <thead>
                 <tr>
@@ -208,16 +226,17 @@ tr:hover td {
             <tbody></tbody>
         </table>
         <div class="pagination">
-            <button id="prevPage" disabled="">Previous</button>
-            <button id="nextPage" disabled="">Next</button>
+            <button id="prevPage" disabled>PREVIOUS</button>
+            <button id="nextPage" disabled>NEXT</button>
         </div>
     </div>
     <div class="card">
-        <h2>DEVELOPER AI  SURYA S3 SYSTEM</h2>
+        <h2>DEVELOPER AI SURYA S3 SYSTEM</h2>
         <div class="button-group">
-        <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" id="registerButton" target="_blank">Join Now Whatsapp !</a>
+            <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" id="registerButton" target="_blank">JOIN NOW WHATSAPP!</a>
+        </div>
     </div>
-<script>
+    <script>
 document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.querySelector('#dataTable tbody');
     const predictedNumberElement = document.getElementById('predictedNumber');
@@ -278,8 +297,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const categorizeNumber = (number) => {
-        if (number >= 0 && number <= 4) return 'SMALL';
-        if (number >= 5 && number <= 9) return 'BIG';
+        if (number >= 0 && number <= 4) return 'Small';
+        if (number >= 5 && number <= 9) return 'Big';
         return 'Unknown';
     };
 
@@ -312,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (!lastPrediction || lastPrediction.issueNumber !== latestIssue) {
                     if (lastPrediction) {
-                        const result = (lastPrediction.category === actualCategory) ? '✔' : '❌';
+                        const result = (lastPrediction.category === actualCategory) ? '✓' : 'X';
                         predictionHistory.unshift({
                             issueNumber: latestIssue,
                             predictedNumber: lastPrediction.number,
@@ -414,6 +433,5 @@ document.addEventListener('DOMContentLoaded', function() {
     updatePredictionHistoryTable();
 });
 </script>
-
-  
-</div></body></html>
+</body>
+</html>
