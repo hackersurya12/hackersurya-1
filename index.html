@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    const categorizeNumber = (number) => (number >= 0 && number <= 4) ? 'Small' : (number >= 5 && number <= 9) ? 'Big' : 'Unknown';
+    const categorizeNumber = (number) => (number >= 5 && number <= 9) ? 'BIG' : (number >= 0 && number <= 4) ? 'SMALL' : 'Unknown';
 
     const calculateAI_Prediction = () => {
         let smallCount = predictionHistory.filter(entry => entry.actualNumber <= 4).length;
