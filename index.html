@@ -164,14 +164,14 @@ tr:hover td {
 </style>
 </head>
 <body>
-    <h1>AI SURYA S3</h1>
+    <h1>AI SURYA S3 ULTRA</h1>
     <div class="card">
         <h2>Live Prediction</h2>
-        <p id="predictedNumber">Prediction :--</p>
-        <p id="predictedPremium">Enjoy: --</p>
+        <p id="predictedNumber">PREDICTION :--</p>
+        <p id="predictedPremium">ENJOY: --</p>
     </div>
     <div class="card">
-        <h2>Timer</h2>
+        <h2>TIMER⏳</h2>
         <p id="timeRemaining">--:--</p>
         
     <div class="button-group">
@@ -180,7 +180,7 @@ tr:hover td {
     </div>
     </div>
     <div class="card">
-        <h2>Latest Data</h2>
+        <h2>GAME LATEST DATA</h2>
         <table id="dataTable">
             <thead>
                 <tr>
@@ -196,7 +196,7 @@ tr:hover td {
         </table>
     </div>
     <div class="card">
-        <h2>PREDICTION HISTORY</h2>
+        <h2>HACK PREDICTION HISTORY</h2>
         <table id="predictionHistoryTable">
             <thead>
                 <tr>
@@ -214,7 +214,7 @@ tr:hover td {
         </div>
     </div>
     <div class="card">
-        <h2>DEVELOPER AI  SURYA S3 SYSTEM</h2>
+        <h2>DEVELOPER AI  SURYA S3 ULTRA SYSTEM</h2>
         <div class="button-group">
         <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" id="registerButton" target="_blank">Whatsapp Join Now!!</a>
     </div>
@@ -279,8 +279,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const categorizeNumber = (number) => {
-        if (number >= 0 && number <= 4) return 'Small';
-        if (number >= 5 && number <= 9) return 'Big';
+        if (number >= 0 && number <= 4) return 'SMALL';
+        if (number >= 5 && number <= 9) return 'BIG';
         return 'Unknown';
     };
 
@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (!lastPrediction || lastPrediction.issueNumber !== latestIssue) {
                     if (lastPrediction) {
-                        const result = (lastPrediction.category === actualCategory) ? 'Win' : 'Loss';
+                        const result = (lastPrediction.category === actualCategory) ? '✔' : '❌';
                         predictionHistory.unshift({
                             issueNumber: latestIssue,
                             predictedNumber: lastPrediction.number,
