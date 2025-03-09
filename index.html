@@ -167,7 +167,7 @@ tr:hover td {
     <h1>AI SURYA S3 ULTRA</h1>
     <div class="card">
         <h2>Live Prediction</h2>
-        <p id="predictedNumber">PREDICTION :--</p>
+        <p id="predictedNumber">PREDICTION :🔮:--</p>
         <p id="predictedPremium">ENJOY: --</p>
     </div>
     <div class="card">
@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('currentPrediction', JSON.stringify(currentPrediction));
                 }
 
-                predictedNumberElement.textContent = `Prediction: ${currentPrediction.number} (${currentPrediction.category})`;
+                predictedNumberElement.textContent = `Prediction 🔮: ${currentPrediction.number} (${currentPrediction.category})`;
                 predictedPremiumElement.textContent = `: N/A`;
 
                 lastPrediction = {
