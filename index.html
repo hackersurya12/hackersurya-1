@@ -1,10 +1,10 @@
- <!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALL GAME 1Min BY SURYA</title>
     <script src="js/chart.js"></script>
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family =Orbitron&display=swap');
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     issueNumber: latestIssue,
                     predictedNumber: lastPrediction.number,
                     actualNumber: latestActual,
-                    result: lastPrediction.category === actualCategory ? '✔' : '❌'
+                    result: lastPrediction.category === actualCategory ? '✓' : 'X'
                 });
                 localStorage.setItem('predictionHistory', JSON.stringify(predictionHistory));
             }
@@ -454,4 +454,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
 </div></body></html>
-              
