@@ -4,8 +4,10 @@
     <title>ALL GAME 1Min BY SURYA</title>
     <script src="js/chart.js"></script>
     <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family =Orbitron&display=swap');
+
 body {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #060c21, #010107);
     margin: 0;
     padding: 0;
@@ -19,6 +21,18 @@ h1, h2 {
     text-shadow: 0px 0px 25px rgba(0, 247, 255, 0.9);
     text-transform: uppercase;
     letter-spacing: 4px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 /* Cards */
@@ -38,13 +52,44 @@ h1, h2 {
     box-shadow: 0px 0px 35px rgba(0, 247, 255, 0.9);
 }
 
-/* Table */
+/* Box */
+.box {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.box h2 {
+    font-size: 18px;
+    color: #ffd700;
+    margin: 0;
+}
+
+.box p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Timer */
+#timeRemaining {
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0px 0px 20px rgba(0, 247, 255, 0.9);
+    color: #00f7ff;
+}
+
+/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
     border-radius: 10px;
     overflow: hidden;
+}
+
+thead {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 th, td {
@@ -73,12 +118,28 @@ tr:hover td {
     box-shadow: 0px 0px 20px rgba(0, 247, 255, 0.6);
 }
 
-/* Timer */
-#timeRemaining {
-    font-size: 30px;
+/* Results */
+.results {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.results span {
     font-weight: bold;
-    text-shadow: 0px 0px 20px rgba(0, 247, 255, 0.9);
-    color: #00f7ff;
+}
+
+.pending {
+    color: orange;
+}
+
+.win {
+    color: green;
+    font-weight: bold;
+}
+
+.loss {
+    color: red;
+    font-weight: bold;
 }
 
 /* Buttons */
@@ -163,11 +224,11 @@ tr:hover td {
 </style>
 </head>
 <body>
-    <h1> SURYA AI S3 ULTRA</h1>
+    <h1>SURYA AI S3 ULTRA</h1>
     <div class="card">
         <h2>AI LIVE PREDICTION</h2>
-        <p id="predictedNumber">Prediction :--</p>
-        <p id="predictedPremium">Enjoy: --</p>
+        <p id="predictedNumber">PREDICTION :--</p>
+        <p id="predictedPremium">ENJOY: --</p>
     </div>
     <div class="card">
         <h2>TIMER</h2>
@@ -213,7 +274,7 @@ tr:hover td {
         </div>
     </div>
     <div class="card">
-        <h2>DEVELOPER AI  SURYA S3 SYSTEM</h2>
+        <h2>DEVELOPER SURYA AI S3 ULTRA SYSTEM</h2>
         <div class="button-group">
         <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" id="registerButton" target="_blank">Whatsapp Join Now!!</a>
     </div>
@@ -226,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const historyTableBody = document.querySelector('#predictionHistoryTable tbody');
     const prevPageButton = document.getElementById('prevPage');
     const nextPageButton = document.getElementById('nextPage');
+
     let predictionHistory = JSON.parse(localStorage.getItem('predictionHistory')) || [];
     let lastPrediction = JSON.parse(localStorage.getItem('lastPrediction'));
     let currentPrediction = JSON.parse(localStorage.getItem('currentPrediction'));
@@ -233,130 +295,124 @@ document.addEventListener('DOMContentLoaded', function() {
     const itemsPerPage = 10;
     let timerInterval;
 
-    const fetchNoAverageEmerdList = () => {
-        const requestData = {
-            pageSize: 10,
-            pageNo: 1,
-            typeId: 1,
-            language: 0,
-            random: "ded40537a2ce416e96c00e5218f6859a",
-            signature: "69306982EEEB19FA940D72EC93C62552",
-            timestamp: Math.floor(Date.now() / 1000)
-        };
+    const fetchNoAverageEmerdList = async () => {
+        try {
+            const requestData = {
+                pageSize: 10,
+                pageNo: 1,
+                typeId: 1,
+                language: 0,
+                random: "ded40537a2ce416e96c00e5218f6859a",
+                signature: "69306982EEEB19FA940D72EC93C62552",
+                timestamp: Math.floor(Date.now() / 1000)
+            };
 
-        return fetch('https://api.bdg88zf.com/api/webapi/GetNoaverageEmerdList', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Accept': 'application/json, text/plain, */*'
-            },
-            body: JSON.stringify(requestData)
-        })
-        .then(response => response.json())
-        .catch(error => console.error('Error fetching no average EMERD list data:', error));
+            const response = await fetch('https://api.bdg88zf.com/api/webapi/GetNoaverageEmerdList', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Accept': 'application/json, text/plain, */*'
+                },
+                body: JSON.stringify(requestData)
+            });
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching no average EMERD list data:', error);
+            return null;
+        }
     };
 
-    const fetchGameIssue = () => {
-        const requestData = {
-            typeId: 1,
-            language: 0,
-            random: "f8dcb5c527814db68800e3946a2b60e8",
-            signature: "08CF7FF3339ED58D4743F4B650FCBEA9",
-            timestamp: Math.floor(Date.now() / 1000)
-        };
+    const fetchGameIssue = async () => {
+        try {
+            const requestData = {
+                typeId: 1,
+                language: 0,
+                random: "f8dcb5c527814db68800e3946a2b60e8",
+                signature: "08CF7FF3339ED58D4743F4B650FCBEA9",
+                timestamp: Math.floor(Date.now() / 1000)
+            };
 
-        return fetch('https://api.bdg88zf.com/api/webapi/GetGameIssue', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Accept': 'application/json, text/plain, */*'
-            },
-            body: JSON.stringify(requestData)
-        })
-        .then(response => response.json())
-        .catch(error => console.error('Error fetching game issue:', error));
+            const response = await fetch('https://api.bdg88zf.com/api/webapi/GetGameIssue', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Accept': 'application/json, text/plain, */*'
+                },
+                body: JSON.stringify(requestData)
+            });
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching game issue:', error);
+            return null;
+        }
     };
 
-    const categorizeNumber = (number) => {
-        if (number >= 0 && number <= 4) return 'SMALL','SMALL';
-        if (number >= 5 && number <= 9) return 'BIG';
-        return 'Unknown';
+    const categorizeNumber = (number) => (number >= 0 && number <= 4) ? 'Small' : (number >= 5 && number <= 9) ? 'Big' : 'Unknown';
+
+    const calculateAI_Prediction = () => {
+        let smallCount = predictionHistory.filter(entry => entry.actualNumber <= 4).length;
+        let bigCount = predictionHistory.filter(entry => entry.actualNumber >= 5).length;
+        
+        let total = smallCount + bigCount;
+        let smallProbability = total ? (smallCount / total) : 0.5;
+        let bigProbability = 1 - smallProbability;
+
+        let predictedNumber = Math.random() < smallProbability ? Math.floor(Math.random() * 5) : Math.floor(Math.random() * 5) + 5;
+        return { number: predictedNumber, category: categorizeNumber(predictedNumber) };
     };
 
-    const generateRandomPrediction = () => {
-        const randomNumber = Math.floor(Math.random() * 10);
-        const randomCategory = categorizeNumber(randomNumber);
-        return { number: randomNumber, category: randomCategory };
-    };
+    const updateDataAndPrediction = async () => {
+        let data = await fetchNoAverageEmerdList();
+        if (!data || !data.data || !data.data.list || data.data.list.length === 0) return;
 
-    const updateDataAndPrediction = () => {
-        fetchNoAverageEmerdList()
-            .then(data => {
-                const list = data.data.list;
-                tableBody.innerHTML = '';
-                list.forEach(item => {
-                    const numberCategory = categorizeNumber(Number(item.number));
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.issueNumber}</td>
-                        <td>${item.number} (${numberCategory})</td>
-                        <td>${item.colour}</td>
-                        <td>${item.premium}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
+        tableBody.innerHTML = '';
+        data.data.list.forEach(item => {
+            const numberCategory = categorizeNumber(Number(item.number));
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${item.issueNumber}</td><td>${item.number} (${numberCategory})</td><td>${item.colour}</td><td>${item.premium}</td>`;
+            tableBody.appendChild(row);
+        });
 
-                const latestIssue = list[0].issueNumber;
-                const latestActual = Number(list[0].number);
-                const actualCategory = categorizeNumber(latestActual);
+        const latestIssue = data.data.list[0].issueNumber;
+        const latestActual = Number(data.data.list[0].number);
+        const actualCategory = categorizeNumber(latestActual);
 
-                if (!lastPrediction || lastPrediction.issueNumber !== latestIssue) {
-                    if (lastPrediction) {
-                        const result = (lastPrediction.category === actualCategory) ? '✔' : '❌';
-                        predictionHistory.unshift({
-                            issueNumber: latestIssue,
-                            predictedNumber: lastPrediction.number,
-                            actualNumber: latestActual,
-                            result: result
-                        });
-                        localStorage.setItem('predictionHistory', JSON.stringify(predictionHistory));
-                    }
-
-                    currentPrediction = generateRandomPrediction();
-                    currentPrediction.issueNumber = latestIssue;
-                    localStorage.setItem('currentPrediction', JSON.stringify(currentPrediction));
-                }
-
-                predictedNumberElement.textContent = `Prediction: ${currentPrediction.number} (${currentPrediction.category})`;
-                predictedPremiumElement.textContent = `: N/A`;
-
-                lastPrediction = {
+        if (!lastPrediction || lastPrediction.issueNumber !== latestIssue) {
+            if (lastPrediction) {
+                predictionHistory.unshift({
                     issueNumber: latestIssue,
-                    number: currentPrediction.number,
-                    category: currentPrediction.category
-                };
-                localStorage.setItem('lastPrediction', JSON.stringify(lastPrediction));
+                    predictedNumber: lastPrediction.number,
+                    actualNumber: latestActual,
+                    result: lastPrediction.category === actualCategory ? '✓' : 'X'
+                });
+                localStorage.setItem('predictionHistory', JSON.stringify(predictionHistory));
+            }
 
-                updatePredictionHistoryTable();
-            })
-            .catch(error => console.error('Error updating data and prediction:', error));
+            currentPrediction = calculateAI_Prediction();
+            currentPrediction.issueNumber = latestIssue;
+            localStorage.setItem('currentPrediction', JSON.stringify(currentPrediction));
+        }
+
+        predictedNumberElement.textContent = `Prediction: ${currentPrediction.number} (${currentPrediction.category})`;
+        predictedPremiumElement.textContent = `: N/A`;
+
+        lastPrediction = { issueNumber: latestIssue, number: currentPrediction.number, category: currentPrediction.category };
+        localStorage.setItem('lastPrediction', JSON.stringify(lastPrediction));
+
+        updatePredictionHistoryTable();
     };
 
     const updatePredictionHistoryTable = () => {
         historyTableBody.innerHTML = '';
-
         const start = currentPage * itemsPerPage;
         const end = start + itemsPerPage;
         const paginatedHistory = predictionHistory.slice(start, end);
 
         paginatedHistory.forEach(entry => {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${entry.issueNumber}</td>
-                <td>${entry.predictedNumber}</td>
-                <td>${entry.actualNumber}</td>
-                <td>${entry.result}</td>
-            `;
+            row.innerHTML = `<td>${entry.issueNumber}</td><td>${entry.predictedNumber}</td><td>${entry.actualNumber}</td><td>${entry.result}</td>`;
             historyTableBody.appendChild(row);
         });
 
@@ -364,53 +420,34 @@ document.addEventListener('DOMContentLoaded', function() {
         nextPageButton.disabled = end >= predictionHistory.length;
     };
 
-    const updateTimer = () => {
-        fetchGameIssue()
-            .then(data => {
-                const { endTime } = data.data;
-                const endDate = new Date(endTime);
-                const now = new Date();
-                const remainingTimeMs = endDate - now;
+    const updateTimer = async () => {
+        let data = await fetchGameIssue();
+        if (!data || !data.data) return;
 
-                if (remainingTimeMs <= 0) {
-                    timerElement.textContent = "Time Remaining: 00:00:00";
-                    clearInterval(timerInterval);
-                    updateDataAndPrediction();
-                    updateTimer();
-                } else {
-                    const hours = String(Math.floor(remainingTimeMs / (1000 * 60 * 60))).padStart(2, '0');
-                    const minutes = String(Math.floor((remainingTimeMs % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-                    const seconds = String(Math.floor((remainingTimeMs % (1000 * 60)) / 1000)).padStart(2, '0');
-                    timerElement.textContent = `Time Remaining: ${hours}:${minutes}:${seconds}`;
-                }
-            })
-            .catch(error => console.error('Error fetching game issue for timer:', error));
+        const endDate = new Date(data.data.endTime);
+        const now = new Date();
+        const remainingTimeMs = endDate - now;
+
+        if (remainingTimeMs <= 0) {
+            timerElement.textContent = "Time Remaining: 00:00:00";
+            clearInterval(timerInterval);
+            await updateDataAndPrediction();
+            updateTimer();
+        } else {
+            const hours = String(Math.floor(remainingTimeMs / 3600000)).padStart(2, '0');
+            const minutes = String(Math.floor((remainingTimeMs % 3600000) / 60000)).padStart(2, '0');
+            const seconds = String(Math.floor((remainingTimeMs % 60000) / 1000)).padStart(2, '0');
+            timerElement.textContent = `Time Remaining: ${hours}:${minutes}:${seconds}`;
+        }
     };
 
-    // Pagination controls
-    prevPageButton.addEventListener('click', () => {
-        if (currentPage > 0) {
-            currentPage--;
-            updatePredictionHistoryTable();
-        }
-    });
+    prevPageButton.addEventListener('click', () => { if (currentPage > 0) { currentPage--; updatePredictionHistoryTable(); } });
+    nextPageButton.addEventListener('click', () => { if ((currentPage + 1) * itemsPerPage < predictionHistory.length) { currentPage++; updatePredictionHistoryTable(); } });
 
-    nextPageButton.addEventListener('click', () => {
-        if ((currentPage + 1) * itemsPerPage < predictionHistory.length) {
-            currentPage++;
-            updatePredictionHistoryTable();
-        }
-    });
-
-    // Initialize data and start the timer
     updateDataAndPrediction();
     updateTimer();
-    timerInterval = setInterval(() => {
-        updateTimer();
-        updateDataAndPrediction();
-    }, 1000); // Update every 10 seconds
+    timerInterval = setInterval(() => { updateTimer(); updateDataAndPrediction(); }, 10000);
 
-    // Load initial prediction history table
     updatePredictionHistoryTable();
 });
 </script>
