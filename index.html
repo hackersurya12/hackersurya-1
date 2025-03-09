@@ -4,8 +4,10 @@
     <title>ALL GAME 1Min BY SURYA</title>
     <script src="js/chart.js"></script>
     <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron&display=swap');
+
 body {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #060c21, #010107);
     margin: 0;
     padding: 0;
@@ -19,6 +21,18 @@ h1, h2 {
     text-shadow: 0px 0px 25px rgba(0, 247, 255, 0.9);
     text-transform: uppercase;
     letter-spacing: 4px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 /* Cards */
@@ -38,13 +52,44 @@ h1, h2 {
     box-shadow: 0px 0px 35px rgba(0, 247, 255, 0.9);
 }
 
-/* Table */
+/* Box */
+.box {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.box h2 {
+    font-size: 18px;
+    color: #ffd700;
+    margin: 0;
+}
+
+.box p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Timer */
+#timeRemaining {
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0px 0px 20px rgba(0, 247, 255, 0.9);
+    color: #00f7ff;
+}
+
+/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
     border-radius: 10px;
     overflow: hidden;
+}
+
+thead {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 th, td {
@@ -73,12 +118,28 @@ tr:hover td {
     box-shadow: 0px 0px 20px rgba(0, 247, 255, 0.6);
 }
 
-/* Timer */
-#timeRemaining {
-    font-size: 30px;
+/* Results */
+.results {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.results span {
     font-weight: bold;
-    text-shadow: 0px 0px 20px rgba(0, 247, 255, 0.9);
-    color: #00f7ff;
+}
+
+.pending {
+    color: orange;
+}
+
+.win {
+    color: green;
+    font-weight: bold;
+}
+
+.loss {
+    color: red;
+    font-weight: bold;
 }
 
 /* Buttons */
@@ -128,7 +189,7 @@ tr:hover td {
 }
 
 .pagination button:hover {
-    background: linear-gradient(45deg  #ffcc00, #ff9900);
+    background: linear-gradient(45deg, #ffcc00, #ff9900);
     transform: scale(1.1);
     box-shadow: 0px 0px 30px rgba(255, 204, 0, 0.8);
 }
@@ -163,7 +224,7 @@ tr:hover td {
 </style>
 </head>
 <body>
-    <h1>SURYA AI S3 ULTRA </h1>
+    <h1>SURYA AI S3 ULTRA</h1>
     <div class="card">
         <h2>Live Prediction</h2>
         <p id="predictedNumber">Prediction :--</p>
@@ -213,7 +274,7 @@ tr:hover td {
         </div>
     </div>
     <div class="card">
-        <h2>DEVELOPER AI  SURYA S3 ULTRA SYSTEM</h2>
+        <h2>DEVELOPER AI  SURYA S3 SYSTEM</h2>
         <div class="button-group">
         <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" id="registerButton" target="_blank">Whatsapp Join Now!!</a>
     </div>
@@ -278,8 +339,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const categorizeNumber = (number) => {
-        if (number >=0 && number <=4) return 'SMALL','SMALL';
-        if (number >=5 && number <=9) return 'BIG';
+        if (number >= 0 && number <= 4) return 'SMALL','SMALL';
+        if (number >= 5 && number <= 9) return 'Big';
         return 'Unknown';
     };
 
