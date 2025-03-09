@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     issueNumber: latestIssue,
                     predictedNumber: lastPrediction.number,
                     actualNumber: latestActual,
-                    result: lastPrediction.category === actualCategory ? '✓' : 'X'
+                    result: lastPrediction.category === actualCategory ? '✔' : '❌'
                 });
                 localStorage.setItem('predictionHistory', JSON.stringify(predictionHistory));
             }
