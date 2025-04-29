@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SURYA AI Chat</title>
+  <title>SURYA  AI Chat</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -15,10 +15,8 @@
       --error: #EA4335;
       --light-bg: #f5f7fa;
       --dark-bg: #1a1d21;
-      --sidebar-light: #ffffff;
-      --sidebar-dark: #1e2023;
-      --chat-bg-light: #ffffff;
-      --chat-bg-dark: #242628;
+      --chat-bg-light: rgba(255, 255, 255, 0.85);
+      --chat-bg-dark: rgba(36, 38, 40, 0.85);
       --user-bubble-light: #4285F4;
       --user-bubble-dark: #2c5364;
       --bot-bubble-light: #f1f3f4;
@@ -27,7 +25,6 @@
       --text-dark: #e8eaed;
       --border-light: #dadce0;
       --border-dark: #3c4043;
-      --sidebar-width: 280px;
     }
 
     * {
@@ -43,189 +40,36 @@
       margin: 0;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       transition: all 0.3s ease;
-      overflow: hidden;
+      background-image: url('https://gifdb.com/images/high/naruto-background-280-x-498-gif-7uu9gfd3yqvgxpzn.gif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
 
     body.dark-mode {
       background: var(--dark-bg);
       color: var(--text-dark);
-    }
-
-    /* Sidebar Styles */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: var(--sidebar-light);
-      border-right: 1px solid var(--border-light);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-      transform: translateX(0);
-      z-index: 100;
-    }
-
-    body.dark-mode .sidebar {
-      background: var(--sidebar-dark);
-      border-right: 1px solid var(--border-dark);
-    }
-
-    .sidebar-header {
-      padding: 20px;
-      border-bottom: 1px solid var(--border-light);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    body.dark-mode .sidebar-header {
-      border-bottom: 1px solid var(--border-dark);
-    }
-
-    .sidebar-header h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-
-    .new-chat-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .new-chat-btn:hover {
-      background: var(--primary-light);
-    }
-
-    .chat-history {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px;
-    }
-
-    .chat-item {
-      padding: 12px 15px;
-      border-radius: 5px;
-      margin-bottom: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .chat-item:hover {
-      background: rgba(0,0,0,0.05);
-    }
-
-    body.dark-mode .chat-item:hover {
-      background: rgba(255,255,255,0.05);
-    }
-
-    .chat-item i {
-      font-size: 14px;
-      color: var(--primary);
-    }
-
-    .sidebar-footer {
-      padding: 15px;
-      border-top: 1px solid var(--border-light);
-    }
-
-    body.dark-mode .sidebar-footer {
-      border-top: 1px solid var(--border-dark);
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .user-profile:hover {
-      background: rgba(0,0,0,0.05);
-    }
-
-    body.dark-mode .user-profile:hover {
-      background: rgba(255,255,255,0.05);
-    }
-
-    .user-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-    }
-
-    .user-info {
-      flex: 1;
-    }
-
-    .user-name {
-      font-weight: 500;
-      font-size: 14px;
-    }
-
-    .user-email {
-      font-size: 12px;
-      opacity: 0.7;
-    }
-
-    /* Main Content Styles */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+      background-image: url('https://gifdb.com/images/high/naruto-background-280-x-498-gif-7uu9gfd3yqvgxpzn.gif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
 
     .header {
       background: var(--primary);
       color: white;
-      padding: 15px 20px;
+      padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       z-index: 10;
-      position: relative;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .menu-toggle {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: none;
     }
 
     .header h1 {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -233,7 +77,7 @@
     }
 
     .header h1 i {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
     }
 
     .controls {
@@ -268,9 +112,13 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
       height: calc(100vh - 70px);
       background: var(--chat-bg-light);
       transition: background 0.3s ease;
+      backdrop-filter: blur(5px);
     }
 
     body.dark-mode #chatContainer {
@@ -283,34 +131,11 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-    }
-
-    .message-container {
-      max-width: 85%;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .message-container.user {
-      align-self: flex-end;
-    }
-
-    .message-container.bot {
-      align-self: flex-start;
-    }
-
-    .message-meta {
-      font-size: 12px;
-      opacity: 0.7;
-      padding: 0 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      gap: 15px;
     }
 
     .message {
+      max-width: 85%;
       padding: 15px 20px;
       border-radius: 18px;
       position: relative;
@@ -325,6 +150,7 @@
     .user-message {
       background-color: var(--user-bubble-light);
       color: white;
+      align-self: flex-end;
       border-bottom-right-radius: 4px;
       animation-delay: 0.1s;
     }
@@ -332,8 +158,10 @@
     .bot-message {
       background-color: var(--bot-bubble-light);
       color: var(--text-light);
+      align-self: flex-start;
       border-bottom-left-radius: 4px;
       animation-delay: 0.2s;
+      position: relative;
     }
 
     body.dark-mode .user-message {
@@ -420,7 +248,6 @@
       border-top: 1px solid var(--border-light);
       background: var(--chat-bg-light);
       transition: all 0.3s ease;
-      position: relative;
     }
 
     body.dark-mode #inputArea {
@@ -438,7 +265,6 @@
       background: var(--chat-bg-light);
       color: var(--text-light);
       transition: all 0.3s ease;
-      padding-right: 45px;
     }
 
     body.dark-mode #userInput {
@@ -480,27 +306,43 @@
       font-size: 18px;
     }
 
-    .input-tools {
+    /* Copy button styles */
+    .copy-btn {
       position: absolute;
-      right: 85px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      gap: 5px;
-    }
-
-    .input-tool-btn {
-      background: none;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.1);
       border: none;
-      color: var(--primary);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
       cursor: pointer;
-      font-size: 18px;
-      opacity: 0.7;
-      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: inherit;
     }
 
-    .input-tool-btn:hover {
+    .bot-message:hover .copy-btn {
       opacity: 1;
+    }
+
+    .copy-btn:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .copy-btn i {
+      font-size: 12px;
+    }
+
+    body.dark-mode .copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     /* Animations */
@@ -517,178 +359,39 @@
     }
 
     /* Scrollbar design */
-    #chatBox::-webkit-scrollbar,
-    .chat-history::-webkit-scrollbar {
+    #chatBox::-webkit-scrollbar {
       width: 8px;
     }
-    
-    #chatBox::-webkit-scrollbar-track,
-    .chat-history::-webkit-scrollbar-track {
+    #chatBox::-webkit-scrollbar-track {
       background: rgba(0,0,0,0.05);
       border-radius: 4px;
     }
-    
-    #chatBox::-webkit-scrollbar-thumb,
-    .chat-history::-webkit-scrollbar-thumb {
+    #chatBox::-webkit-scrollbar-thumb {
       background: rgba(0,0,0,0.2);
       border-radius: 4px;
     }
-    
-    #chatBox::-webkit-scrollbar-thumb:hover,
-    .chat-history::-webkit-scrollbar-thumb:hover {
+    #chatBox::-webkit-scrollbar-thumb:hover {
       background: rgba(0,0,0,0.3);
     }
 
-    body.dark-mode #chatBox::-webkit-scrollbar-track,
-    body.dark-mode .chat-history::-webkit-scrollbar-track {
+    body.dark-mode #chatBox::-webkit-scrollbar-track {
       background: rgba(255,255,255,0.05);
     }
-    
-    body.dark-mode #chatBox::-webkit-scrollbar-thumb,
-    body.dark-mode .chat-history::-webkit-scrollbar-thumb {
+    body.dark-mode #chatBox::-webkit-scrollbar-thumb {
       background: rgba(255,255,255,0.2);
     }
-    
-    body.dark-mode #chatBox::-webkit-scrollbar-thumb:hover,
-    body.dark-mode .chat-history::-webkit-scrollbar-thumb:hover {
+    body.dark-mode #chatBox::-webkit-scrollbar-thumb:hover {
       background: rgba(255,255,255,0.3);
     }
 
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 100;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-    }
-
-    .modal-content {
-      background-color: var(--chat-bg-light);
-      margin: 15% auto;
-      padding: 25px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    }
-
-    body.dark-mode .modal-content {
-      background-color: var(--chat-bg-dark);
-      color: var(--text-dark);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .modal-header h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-    .close-modal {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-light);
-      transition: all 0.3s ease;
-    }
-
-    body.dark-mode .close-modal {
-      color: var(--text-dark);
-    }
-
-    .close-modal:hover {
-      color: var(--error);
-    }
-
-    .modal-body {
-      margin-bottom: 25px;
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-
-    .modal-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .modal-btn-cancel {
-      background-color: var(--error);
-      color: white;
-    }
-
-    .modal-btn-save {
-      background-color: var(--secondary);
-      color: white;
-    }
-
-    .modal-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
-    .modal-select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 5px;
-      border: 1px solid var(--border-light);
-      margin-bottom: 20px;
-      font-size: 15px;
-      background: var(--chat-bg-light);
-      color: var(--text-light);
-    }
-
-    body.dark-mode .modal-select {
-      background: var(--chat-bg-dark);
-      color: var(--text-dark);
-      border-color: var(--border-dark);
-    }
-
     /* Responsive adjustments */
-    @media (max-width: 992px) {
-      .sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100vh;
-        transform: translateX(-100%);
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-      }
-
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-    }
-
     @media (max-width: 768px) {
       .header {
-        padding: 12px 15px;
+        padding: 15px;
       }
       
       .header h1 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
       }
       
       .control-btn span {
@@ -706,42 +409,19 @@
         padding: 15px;
       }
       
-      .message-container {
-        max-width: 95%;
-      }
-      
       .message {
+        max-width: 90%;
         padding: 12px 16px;
         font-size: 14px;
       }
       
       #userInput {
         padding: 10px 15px;
-        padding-right: 40px;
       }
       
       #sendBtn {
         width: 42px;
         height: 42px;
-      }
-
-      .input-tools {
-        right: 75px;
-      }
-
-      .input-tool-btn {
-        font-size: 16px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .sidebar {
-        width: 85%;
-      }
-
-      .modal-content {
-        width: 95%;
-        padding: 20px;
       }
     }
   </style>
@@ -749,147 +429,32 @@
 
 <body>
 
-<div class="sidebar">
-  <div class="sidebar-header">
-    <h2>Chat History</h2>
-    <button class="new-chat-btn" id="newChatBtn">
-      <i class="fas fa-plus"></i>
-      <span>New Chat</span>
+<div class="header">
+  <h1><i class="fas fa-robot"></i> SURYA  AI Chat</h1>
+  <div class="controls">
+    <button id="clearBtn" class="control-btn" title="Clear Chat">
+      <i class="fas fa-trash-alt"></i>
+      <span>Clear</span>
+    </button>
+    <button id="toggleModeBtn" class="control-btn" title="Toggle Dark Mode">
+      <i class="fas fa-moon"></i>
+      <span>Dark</span>
     </button>
   </div>
-  
-  <div class="chat-history" id="chatHistory">
-    <!-- Chat history items will be added here -->
-    <div class="chat-item">
-      <i class="fas fa-comment"></i>
-      <span>Getting Started</span>
-    </div>
-    <div class="chat-item">
-      <i class="fas fa-comment"></i>
-      <span>Code Help</span>
-    </div>
-    <div class="chat-item">
-      <i class="fas fa-comment"></i>
-      <span>Project Ideas</span>
-    </div>
-  </div>
-  
-  <div class="sidebar-footer">
-    <div class="user-profile">
-      <div class="user-avatar">U</div>
-      <div class="user-info">
-        <div class="user-name">User</div>
-        <div class="user-email">user@example.com</div>
-      </div>
-      <i class="fas fa-chevron-down"></i>
-    </div>
-  </div>
 </div>
 
-<div class="main-content">
-  <div class="header">
-    <div class="header-left">
-      <button class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-      </button>
-      <h1><i class="fas fa-robot"></i> SURYA AI Chat</h1>
-    </div>
-    <div class="controls">
-      <button id="clearBtn" class="control-btn" title="Clear Chat">
-        <i class="fas fa-trash-alt"></i>
-        <span>Clear</span>
-      </button>
-      <button id="toggleModeBtn" class="control-btn" title="Toggle Dark Mode">
-        <i class="fas fa-moon"></i>
-        <span>Dark</span>
-      </button>
-      <button id="modelBtn" class="control-btn" title="Change Model">
-        <i class="fas fa-cog"></i>
-        <span>Model</span>
-      </button>
-    </div>
-  </div>
-
-  <div id="chatContainer">
-    <div id="chatBox"></div>
-    <div id="inputArea">
-      <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off">
-      <div class="input-tools">
-        <button class="input-tool-btn" title="Attach File">
-          <i class="fas fa-paperclip"></i>
-        </button>
-        <button class="input-tool-btn" title="Send Prompt">
-          <i class="fas fa-magic"></i>
-        </button>
-      </div>
-      <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-    </div>
-  </div>
-</div>
-
-<!-- Model Selection Modal -->
-<div id="modelModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>Select AI Model</h2>
-      <button class="close-modal" id="closeModelModal">&times;</button>
-    </div>
-    <div class="modal-body">
-      <select id="modelSelect" class="modal-select">
-        <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
-        <option value="openai/gpt-4">GPT-4</option>
-        <option value="openai/gpt-4o">GPT-4o</option>
-        <option value="anthropic/claude-3-opus">Claude 3 Opus</option>
-        <option value="anthropic/claude-3-sonnet">Claude 3 Sonnet</option>
-        <option value="google/gemini-pro">Gemini Pro</option>
-      </select>
-      <p style="font-size: 14px; opacity: 0.8;">Select the AI model you want to use for this chat.</p>
-    </div>
-    <div class="modal-footer">
-      <button id="cancelModelBtn" class="modal-btn modal-btn-cancel">Cancel</button>
-      <button id="saveModelBtn" class="modal-btn modal-btn-save">Save Changes</button>
-    </div>
-  </div>
-</div>
-
-<!-- User Profile Modal -->
-<div id="profileModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>User Profile</h2>
-      <button class="close-modal" id="closeProfileModal">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        <div style="display: flex; justify-content: center;">
-          <div class="user-avatar" style="width: 80px; height: 80px; font-size: 2rem;">U</div>
-        </div>
-        
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-          <div>
-            <label style="display: block; margin-bottom: 5px; font-weight: 500;">Name</label>
-            <input type="text" class="modal-select" value="User" style="width: 100%;">
-          </div>
-          
-          <div>
-            <label style="display: block; margin-bottom: 5px; font-weight: 500;">Email</label>
-            <input type="email" class="modal-select" value="user@example.com" style="width: 100%;">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button id="cancelProfileBtn" class="modal-btn modal-btn-cancel">Cancel</button>
-      <button id="saveProfileBtn" class="modal-btn modal-btn-save">Save Changes</button>
-    </div>
+<div id="chatContainer">
+  <div id="chatBox"></div>
+  <div id="inputArea">
+    <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off">
+    <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
   </div>
 </div>
 
 <script>
 // ====== CONFIG ======
-const OPENROUTER_API_KEY = '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';
+const GEMINI_API_KEY = 'AIzaSyBo1VVOCfFKrWl5w3Ew4UL7vHUEnmWgZt4';
 const INITIAL_PROMPT = "You are a helpful AI assistant. Provide clear, concise, and well-structured responses. Format your answers with proper markdown when appropriate (use **bold**, *italics*, `code`, ```code blocks```, and lists).";
-const DEFAULT_MODEL = 'openai/gpt-4o';
 
 // ====== ELEMENTS ======
 const chatBox = document.getElementById('chatBox');
@@ -897,464 +462,259 @@ const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 const clearBtn = document.getElementById('clearBtn');
 const toggleModeBtn = document.getElementById('toggleModeBtn');
-const modelBtn = document.getElementById('modelBtn');
-const newChatBtn = document.getElementById('newChatBtn');
-const menuToggle = document.getElementById('menuToggle');
-const sidebar = document.querySelector('.sidebar');
-const chatHistoryList = document.getElementById('chatHistory');
-const userProfile = document.querySelector('.user-profile');
-
-// Modal elements
-const modelModal = document.getElementById('modelModal');
-const modelSelect = document.getElementById('modelSelect');
-const closeModelModal = document.getElementById('closeModelModal');
-const cancelModelBtn = document.getElementById('cancelModelBtn');
-const saveModelBtn = document.getElementById('saveModelBtn');
-
-const profileModal = document.getElementById('profileModal');
-const closeProfileModal = document.getElementById('closeProfileModal');
-const cancelProfileBtn = document.getElementById('cancelProfileBtn');
-const saveProfileBtn = document.getElementById('saveProfileBtn');
 
 // ====== STATE ======
-let messages = [
-    {
-        role: "system",
-        content: INITIAL_PROMPT
-    },
-    {
-        role: "assistant",
-        content: "Understood. I'm ready to help!"
-    }
-];
+let chatHistory = [];
 let isWaiting = false;
-let currentModel = localStorage.getItem('currentModel') || DEFAULT_MODEL;
-let chatSessions = [];
-let currentSessionId = Date.now().toString();
 
-// ====== INITIALIZATION ======
-function init() {
-    // Load saved chat sessions
-    const savedSessions = localStorage.getItem('chatSessions');
-    if (savedSessions) {
-        chatSessions = JSON.parse(savedSessions);
-        renderChatHistory();
-    } else {
-        // Create initial session
-        chatSessions.push({
-            id: currentSessionId,
-            title: "New Chat",
-            timestamp: Date.now(),
-            messages: [...messages]
-        });
-        saveChatSessions();
-    }
-
-    // Load current model
-    const savedModel = localStorage.getItem('currentModel');
-    if (savedModel) {
-        currentModel = savedModel;
-        modelSelect.value = currentModel;
-    }
-
-    // Check dark mode preference
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        toggleModeBtn.querySelector('i').classList.remove('fa-moon');
-        toggleModeBtn.querySelector('i').classList.add('fa-sun');
-        toggleModeBtn.querySelector('span').textContent = 'Light';
-    }
-
-    // Display welcome message if no messages in current session
-    const currentSession = chatSessions.find(session => session.id === currentSessionId);
-    if (currentSession && currentSession.messages.length <= 2) {
-        setTimeout(() => {
-            appendMessage('SURYA AI', `Welcome to SURYA AI Chat! I'm using ${modelSelect.options[modelSelect.selectedIndex].text}. How can I assist you today?`);
-            userInput.focus();
-        }, 500);
-    } else if (currentSession) {
-        // Load messages from current session
-        currentSession.messages.forEach(msg => {
-            if (msg.role === 'assistant') {
-                appendMessage('SURYA AI', msg.content);
-            } else if (msg.role === 'user') {
-                appendMessage('You', msg.content);
-            }
-        });
-    }
-}
-
-// ====== EVENT LISTENERS ======
+// ====== EVENTS ======
 sendBtn.addEventListener('click', sendMessage);
 userInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && !isWaiting) sendMessage();
+  if (e.key === 'Enter' && !isWaiting) sendMessage();
 });
 clearBtn.addEventListener('click', clearChat);
 toggleModeBtn.addEventListener('click', toggleMode);
-modelBtn.addEventListener('click', showModelModal);
-newChatBtn.addEventListener('click', startNewChat);
-menuToggle.addEventListener('click', toggleSidebar);
-userProfile.addEventListener('click', showProfileModal);
 
-// Model modal events
-closeModelModal.addEventListener('click', hideModelModal);
-cancelModelBtn.addEventListener('click', hideModelModal);
-saveModelBtn.addEventListener('click', saveModel);
-
-// Profile modal events
-closeProfileModal.addEventListener('click', hideProfileModal);
-cancelProfileBtn.addEventListener('click', hideProfileModal);
-saveProfileBtn.addEventListener('click', saveProfile);
-
-// Initialize model select with current model
-modelSelect.value = currentModel;
-
-// ====== CHAT FUNCTIONS ======
+// ====== FUNCTIONS ======
 function appendMessage(sender, message, isLoading = false) {
-    const container = document.createElement('div');
-    container.className = `message-container ${sender === 'You' ? 'user' : 'bot'}`;
+  const div = document.createElement('div');
+  div.className = `message ${sender === 'You' ? 'user-message' : 'bot-message'}`;
+  
+  if (isLoading) {
+    div.innerHTML = `
+      <div class="loading">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    `;
+  } else {
+    // Enhanced markdown formatting
+    let formatted = message
+      // Headers
+      .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+      // Bold and Italic
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      // Code blocks
+      .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
+      // Inline code
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      // Links
+      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+      // Lists
+      .replace(/^\s*\*\s(.*$)/gm, '<li>$1</li>')
+      .replace(/^\s*-\s(.*$)/gm, '<li>$1</li>')
+      .replace(/^\s*\d\.\s(.*$)/gm, '<li>$1</li>')
+      // Line breaks
+      .replace(/\n/g, '<br>');
     
-    const meta = document.createElement('div');
-    meta.className = 'message-meta';
-    meta.textContent = sender === 'You' ? 'You' : 'SURYA AI';
-    
-    const div = document.createElement('div');
-    div.className = `message ${sender === 'You' ? 'user-message' : 'bot-message'}`;
-    
-    if (isLoading) {
-        div.innerHTML = `
-            <div class="loading">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        `;
-    } else {
-        // Enhanced markdown formatting
-        let formatted = message
-            // Headers
-            .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-            .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-            .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-            // Bold and Italic
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            // Code blocks
-            .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
-            // Inline code
-            .replace(/`(.*?)`/g, '<code>$1</code>')
-            // Links
-            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
-            // Lists
-            .replace(/^\s*\*\s(.*$)/gm, '<li>$1</li>')
-            .replace(/^\s*-\s(.*$)/gm, '<li>$1</li>')
-            .replace(/^\s*\d\.\s(.*$)/gm, '<li>$1</li>')
-            // Line breaks
-            .replace(/\n/g, '<br>');
-        
-        // Handle lists
-        if (formatted.includes('<li>')) {
-            formatted = formatted.replace(/<li>.*?<\/li>/g, (match) => {
-                return match;
-            });
-            formatted = '<ul>' + formatted + '</ul>';
-        }
-        
-        div.innerHTML = formatted;
+    // Handle lists
+    if (formatted.includes('<li>')) {
+      formatted = formatted.replace(/<li>.*?<\/li>/g, (match) => {
+        return match;
+      });
+      formatted = '<ul>' + formatted + '</ul>';
     }
     
-    container.appendChild(meta);
-    container.appendChild(div);
-    chatBox.appendChild(container);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    div.innerHTML = formatted;
     
-    // Animate the message
-    setTimeout(() => {
-        div.style.opacity = '1';
-        div.style.transform = 'translateY(0)';
-    }, 10);
+    // Add copy button for bot messages
+    if (sender !== 'You') {
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-btn';
+      copyBtn.title = 'Copy message';
+      copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+      copyBtn.addEventListener('click', () => {
+        copyToClipboard(message);
+        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+        }, 2000);
+      });
+      div.appendChild(copyBtn);
+    }
+  }
+  
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  
+  // Animate the message
+  setTimeout(() => {
+    div.style.opacity = '1';
+    div.style.transform = 'translateY(0)';
+  }, 10);
+}
+
+function copyToClipboard(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
 }
 
 async function sendMessage() {
-    const message = userInput.value.trim();
-    if (message === '' || isWaiting) return;
+  const message = userInput.value.trim();
+  if (message === '' || isWaiting) return;
 
-    appendMessage('You', message);
-    messages.push({ role: "user", content: message });
-    updateCurrentSession();
-    
-    userInput.value = '';
-    isWaiting = true;
-    
-    const loadingDiv = document.createElement('div');
-    loadingDiv.className = 'message-container bot';
-    
-    const meta = document.createElement('div');
-    meta.className = 'message-meta';
-    meta.textContent = 'SURYA AI';
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message bot-message loading';
-    messageDiv.innerHTML = `
-        <div class="loading">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-    `;
-    
-    loadingDiv.appendChild(meta);
-    loadingDiv.appendChild(messageDiv);
-    chatBox.appendChild(loadingDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+  appendMessage('You', message);
+  userInput.value = '';
+  isWaiting = true;
+  
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'message bot-message loading';
+  loadingDiv.innerHTML = `
+    <div class="loading">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  `;
+  chatBox.appendChild(loadingDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
-    try {
-        const reply = await getOpenRouterResponse(message);
-        messageDiv.classList.remove('loading');
-        
-        // Format the reply with markdown
-        let formatted = reply
-            .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
-            .replace(/`(.*?)`/g, '<code>$1</code>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/\n/g, '<br>');
-        
-        messageDiv.innerHTML = formatted;
-        
-        // Update messages and session
-        messages.push({ role: "assistant", content: reply });
-        updateCurrentSession();
-        
-        // Update chat title if this is the first user message
-        const currentSession = chatSessions.find(session => session.id === currentSessionId);
-        if (currentSession && currentSession.messages.length === 3) { // system + assistant + user
-            currentSession.title = message.length > 30 ? message.substring(0, 30) + '...' : message;
-            saveChatSessions();
-            renderChatHistory();
-        }
-    } catch (error) {
-        messageDiv.innerHTML = `<span style="color: var(--error)">Error: ${error.message}</span>`;
-        console.error('API Error:', error);
-    } finally {
-        isWaiting = false;
-        userInput.focus();
+  try {
+    const reply = await getGeminiResponse(message);
+    loadingDiv.classList.remove('loading');
+    
+    // Format the reply with markdown
+    let formatted = reply
+      .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>');
+    
+    loadingDiv.innerHTML = formatted;
+    
+    // Add copy button
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.title = 'Copy message';
+    copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+    copyBtn.addEventListener('click', () => {
+      copyToClipboard(reply);
+      copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+      setTimeout(() => {
+        copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+      }, 2000);
+    });
+    loadingDiv.appendChild(copyBtn);
+    
+    // Update chat history
+    chatHistory.push({
+      role: "user",
+      parts: [{ text: message }]
+    }, {
+      role: "model", 
+      parts: [{ text: reply }]
+    });
+    
+    // Limit history
+    if (chatHistory.length > 12) {
+      chatHistory = chatHistory.slice(-12);
     }
+  } catch (error) {
+    loadingDiv.innerHTML = `<span style="color: var(--error)">Error: ${error.message}</span>`;
+    console.error('API Error:', error);
+  } finally {
+    isWaiting = false;
+    userInput.focus();
+  }
 }
 
-async function getOpenRouterResponse(prompt) {
-    const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
-    
-    const payload = {
-        model: currentModel,
-        messages: messages,
-        temperature: 0.7,
-        max_tokens: 2000
-    };
-
-    const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-            'HTTP-Referer': window.location.href,
-            'X-Title': 'SURYA AI Chat'
-        },
-        body: JSON.stringify(payload)
-    });
-
-    if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error?.message || 'API request failed');
+async function getGeminiResponse(prompt) {
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${GEMINI_API_KEY}`;
+  
+  const contents = [
+    {
+      role: "user",
+      parts: [{ text: INITIAL_PROMPT }]
+    },
+    {
+      role: "model",
+      parts: [{ text: "Understood. I'm ready to help!" }]
+    },
+    ...chatHistory,
+    {
+      role: "user",
+      parts: [{ text: prompt }]
     }
+  ];
 
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || "I couldn't generate a response.";
+  const payload = {
+    contents,
+    generationConfig: {
+      temperature: 0.7,
+      topP: 0.9,
+      maxOutputTokens: 2000
+    },
+    safetySettings: [
+      {
+        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+      }
+    ]
+  };
+
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.error?.message || 'API request failed');
+  }
+
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
 }
 
 function clearChat() {
-    chatBox.innerHTML = '';
-    messages = [
-        {
-            role: "system",
-            content: INITIAL_PROMPT
-        },
-        {
-            role: "assistant",
-            content: "Understood. I'm ready to help!"
-        }
-    ];
-    updateCurrentSession();
-    
-    // Add a welcome message
-    setTimeout(() => {
-        appendMessage('SURYA AI', "Hello! How can I assist you today?");
-    }, 300);
+  chatBox.innerHTML = '';
+  chatHistory = [];
+  // Add a welcome message
+  setTimeout(() => {
+    appendMessage('I AM SURYA AI', "Hello! IM SURYA AI  How can I assist you today?");
+  }, 300);
 }
 
-function startNewChat() {
-    // Save current session
-    updateCurrentSession();
-    
-    // Create new session
-    currentSessionId = Date.now().toString();
-    messages = [
-        {
-            role: "system",
-            content: INITIAL_PROMPT
-        },
-        {
-            role: "assistant",
-            content: "Understood. I'm ready to help!"
-        }
-    ];
-    
-    chatSessions.unshift({
-        id: currentSessionId,
-        title: "New Chat",
-        timestamp: Date.now(),
-        messages: [...messages]
-    });
-    
-    // Limit to 20 sessions
-    if (chatSessions.length > 20) {
-        chatSessions.pop();
-    }
-    
-    saveChatSessions();
-    renderChatHistory();
-    chatBox.innerHTML = '';
-    
-    // Add welcome message
-    setTimeout(() => {
-        appendMessage('SURYA AI', `Welcome to your new chat! I'm using ${modelSelect.options[modelSelect.selectedIndex].text}. How can I assist you today?`);
-        userInput.focus();
-    }, 300);
-    
-    hideSidebar();
-}
-
-function loadChatSession(sessionId) {
-    const session = chatSessions.find(s => s.id === sessionId);
-    if (session) {
-        currentSessionId = sessionId;
-        messages = [...session.messages];
-        chatBox.innerHTML = '';
-        
-        session.messages.forEach(msg => {
-            if (msg.role === 'assistant') {
-                appendMessage('SURYA AI', msg.content);
-            } else if (msg.role === 'user') {
-                appendMessage('You', msg.content);
-            }
-        });
-        
-        hideSidebar();
-    }
-}
-
-function updateCurrentSession() {
-    const sessionIndex = chatSessions.findIndex(session => session.id === currentSessionId);
-    if (sessionIndex !== -1) {
-        chatSessions[sessionIndex].messages = [...messages];
-        chatSessions[sessionIndex].timestamp = Date.now();
-        saveChatSessions();
-    }
-}
-
-function saveChatSessions() {
-    localStorage.setItem('chatSessions', JSON.stringify(chatSessions));
-}
-
-function renderChatHistory() {
-    chatHistoryList.innerHTML = '';
-    
-    chatSessions.sort((a, b) => b.timestamp - a.timestamp).forEach(session => {
-        const chatItem = document.createElement('div');
-        chatItem.className = `chat-item ${session.id === currentSessionId ? 'active' : ''}`;
-        chatItem.innerHTML = `
-            <i class="fas fa-comment"></i>
-            <span>${session.title}</span>
-        `;
-        chatItem.addEventListener('click', () => loadChatSession(session.id));
-        chatHistoryList.appendChild(chatItem);
-    });
-}
-
-// ====== UI FUNCTIONS ======
 function toggleMode() {
-    document.body.classList.toggle('dark-mode');
-    
-    // Update the icon
-    const icon = toggleModeBtn.querySelector('i');
-    if (document.body.classList.contains('dark-mode')) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-        toggleModeBtn.querySelector('span').textContent = 'Light';
-        localStorage.setItem('darkMode', 'enabled');
-    } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-        toggleModeBtn.querySelector('span').textContent = 'Dark';
-        localStorage.setItem('darkMode', 'disabled');
-    }
-    
-    // Animate the toggle
-    toggleModeBtn.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-        toggleModeBtn.style.transform = 'scale(1)';
-    }, 200);
+  document.body.classList.toggle('dark-mode');
+  
+  // Update the icon
+  const icon = toggleModeBtn.querySelector('i');
+  if (document.body.classList.contains('dark-mode')) {
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
+    toggleModeBtn.querySelector('span').textContent = 'Light';
+  } else {
+    icon.classList.remove('fa-sun');
+    icon.classList.add('fa-moon');
+    toggleModeBtn.querySelector('span').textContent = 'Dark';
+  }
+  
+  // Animate the toggle
+  toggleModeBtn.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    toggleModeBtn.style.transform = 'scale(1)';
+  }, 200);
 }
 
-function toggleSidebar() {
-    sidebar.classList.toggle('active');
-}
-
-function hideSidebar() {
-    sidebar.classList.remove('active');
-}
-
-function showModelModal() {
-    modelModal.style.display = 'block';
-}
-
-function hideModelModal() {
-    modelModal.style.display = 'none';
-}
-
-function saveModel() {
-    currentModel = modelSelect.value;
-    localStorage.setItem('currentModel', currentModel);
-    hideModelModal();
-    appendMessage('SURYA AI', `Model changed to ${modelSelect.options[modelSelect.selectedIndex].text}`);
-}
-
-function showProfileModal() {
-    profileModal.style.display = 'block';
-}
-
-function hideProfileModal() {
-    profileModal.style.display = 'none';
-}
-
-function saveProfile() {
-    // In a real app, you would save the profile changes here
-    hideProfileModal();
-}
-
-// ====== INITIALIZE APP ======
-document.addEventListener('DOMContentLoaded', () => {
-    init();
-    
-    // Close modals when clicking outside
-    window.addEventListener('click', (e) => {
-        if (e.target === modelModal) {
-            hideModelModal();
-        }
-        if (e.target === profileModal) {
-            hideProfileModal();
-        }
-    });
+// Initial welcome message
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    appendMessage('SURYA AI', "Welcome to SURYA AI Chat! I'm here to help you with any questions or tasks you have. How can I assist you today?");
+    userInput.focus();
+  }, 500);
 });
 </script>
 
