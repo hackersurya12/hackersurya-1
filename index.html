@@ -1,722 +1,545 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SURYA  AI Chat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #4285F4;
-      --primary-light: #5e9bf8;
-      --secondary: #34A853;
-      --accent: #FBBC05;
-      --error: #EA4335;
-      --light-bg: #f5f7fa;
-      --dark-bg: #1a1d21;
-      --chat-bg-light: rgba(255, 255, 255, 0.85);
-      --chat-bg-dark: rgba(36, 38, 40, 0.85);
-      --user-bubble-light: #4285F4;
-      --user-bubble-dark: #2c5364;
-      --bot-bubble-light: #f1f3f4;
-      --bot-bubble-dark: #2f3337;
-      --text-light: #202124;
-      --text-dark: #e8eaed;
-      --border-light: #dadce0;
-      --border-dark: #3c4043;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--light-bg);
-      padding: 0;
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-      background-image: url('https://gifdb.com/images/high/naruto-background-280-x-498-gif-7uu9gfd3yqvgxpzn.gif');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-    body.dark-mode {
-      background: var(--dark-bg);
-      color: var(--text-dark);
-      background-image: url('https://gifdb.com/images/high/naruto-background-280-x-498-gif-7uu9gfd3yqvgxpzn.gif');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-    .header {
-      background: var(--primary);
-      color: white;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      z-index: 10;
-    }
-
-    .header h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .header h1 i {
-      font-size: 1.3rem;
-    }
-
-    .controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    .control-btn {
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      padding: 8px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      color: white;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .control-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .control-btn i {
-      font-size: 14px;
-    }
-
-    #chatContainer {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-      height: calc(100vh - 70px);
-      background: var(--chat-bg-light);
-      transition: background 0.3s ease;
-      backdrop-filter: blur(5px);
-    }
-
-    body.dark-mode #chatContainer {
-      background: var(--chat-bg-dark);
-    }
-
-    #chatBox {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .message {
-      max-width: 85%;
-      padding: 15px 20px;
-      border-radius: 18px;
-      position: relative;
-      word-wrap: break-word;
-      animation: messageIn 0.3s ease-out forwards;
-      opacity: 0;
-      transform: translateY(10px);
-      line-height: 1.5;
-      font-size: 15px;
-    }
-
-    .user-message {
-      background-color: var(--user-bubble-light);
-      color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-      animation-delay: 0.1s;
-    }
-
-    .bot-message {
-      background-color: var(--bot-bubble-light);
-      color: var(--text-light);
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-      animation-delay: 0.2s;
-      position: relative;
-    }
-
-    body.dark-mode .user-message {
-      background-color: var(--user-bubble-dark);
-      color: var(--text-dark);
-    }
-
-    body.dark-mode .bot-message {
-      background-color: var(--bot-bubble-dark);
-      color: var(--text-dark);
-    }
-
-    .message pre {
-      background: rgba(0,0,0,0.1);
-      padding: 10px;
-      border-radius: 8px;
-      overflow-x: auto;
-      margin: 10px 0;
-      font-family: 'Courier New', monospace;
-      font-size: 14px;
-    }
-
-    body.dark-mode .message pre {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .message code {
-      font-family: 'Courier New', monospace;
-      background: rgba(0,0,0,0.1);
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    body.dark-mode .message code {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .message table {
-      border-collapse: collapse;
-      margin: 10px 0;
-      width: 100%;
-    }
-
-    .message table, .message th, .message td {
-      border: 1px solid rgba(0,0,0,0.1);
-    }
-
-    body.dark-mode .message table, 
-    body.dark-mode .message th, 
-    body.dark-mode .message td {
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .message th, .message td {
-      padding: 8px 12px;
-      text-align: left;
-    }
-
-    .loading {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: inherit;
-      font-style: italic;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: currentColor;
-      border-radius: 50%;
-      display: inline-block;
-      animation: bounce 1.4s infinite ease-in-out;
-    }
-
-    .dot:nth-child(1) { animation-delay: 0s; }
-    .dot:nth-child(2) { animation-delay: 0.2s; }
-    .dot:nth-child(3) { animation-delay: 0.4s; }
-
-    #inputArea {
-      display: flex;
-      padding: 15px;
-      border-top: 1px solid var(--border-light);
-      background: var(--chat-bg-light);
-      transition: all 0.3s ease;
-    }
-
-    body.dark-mode #inputArea {
-      background: var(--chat-bg-dark);
-      border-top: 1px solid var(--border-dark);
-    }
-
-    #userInput {
-      flex: 1;
-      padding: 12px 18px;
-      border: 1px solid var(--border-light);
-      border-radius: 24px;
-      font-size: 15px;
-      outline: none;
-      background: var(--chat-bg-light);
-      color: var(--text-light);
-      transition: all 0.3s ease;
-    }
-
-    body.dark-mode #userInput {
-      background: var(--chat-bg-dark);
-      border-color: var(--border-dark);
-      color: var(--text-dark);
-    }
-
-    #userInput:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
-    }
-
-    #sendBtn {
-      width: 48px;
-      height: 48px;
-      margin-left: 10px;
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #sendBtn:hover {
-      background-color: var(--primary-light);
-      transform: scale(1.05);
-    }
-
-    #sendBtn:active {
-      transform: scale(0.95);
-    }
-
-    #sendBtn i {
-      font-size: 18px;
-    }
-
-    /* Copy button styles */
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(0, 0, 0, 0.1);
-      border: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      color: inherit;
-    }
-
-    .bot-message:hover .copy-btn {
-      opacity: 1;
-    }
-
-    .copy-btn:hover {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .copy-btn i {
-      font-size: 12px;
-    }
-
-    body.dark-mode .copy-btn {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    body.dark-mode .copy-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Animations */
-    @keyframes messageIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    /* Scrollbar design */
-    #chatBox::-webkit-scrollbar {
-      width: 8px;
-    }
-    #chatBox::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.05);
-      border-radius: 4px;
-    }
-    #chatBox::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.2);
-      border-radius: 4px;
-    }
-    #chatBox::-webkit-scrollbar-thumb:hover {
-      background: rgba(0,0,0,0.3);
-    }
-
-    body.dark-mode #chatBox::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.05);
-    }
-    body.dark-mode #chatBox::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.2);
-    }
-    body.dark-mode #chatBox::-webkit-scrollbar-thumb:hover {
-      background: rgba(255,255,255,0.3);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .header {
-        padding: 15px;
-      }
-      
-      .header h1 {
-        font-size: 1.2rem;
-      }
-      
-      .control-btn span {
-        display: none;
-      }
-      
-      .control-btn {
-        padding: 8px;
-        width: 36px;
-        height: 36px;
-        justify-content: center;
-      }
-      
-      #chatBox {
-        padding: 15px;
-      }
-      
-      .message {
-        max-width: 90%;
-        padding: 12px 16px;
-        font-size: 14px;
-      }
-      
-      #userInput {
-        padding: 10px 15px;
-      }
-      
-      #sendBtn {
-        width: 42px;
-        height: 42px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingo Access Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'El Messiri', sans-serif;
+        }
+        body {
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTniaWWFultO_a9z1Eh9oQB7Jl0mZDH9Cb3zllerYyIyW7XrLpw_EWYNCg9&s=10') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: background 0.5s ease;
+        }
+        
+        .holder {
+            position: absolute;
+            width: 350px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.8s ease-out;
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .floating-img {
+            display: block;
+            margin: 0 auto 20px;
+            width: 120px;
+            animation: floatUpDown 3s infinite alternate ease-in-out;
+            filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.3));
+        }
+        
+        @keyframes floatUpDown {
+            0% {
+                transform: translateY(0px);
+            }
+            100% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        .inputBox {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .inputBox input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .inputBox input:focus {
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        .inputBox span {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+            transition: 0.3s;
+        }
+        
+        .inputBox input:focus + span,
+        .inputBox input:valid + span {
+            top: 0;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0 5px;
+            color: #fff;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(45deg, #e52e71, #ff8a00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .start-btn {
+            background: linear-gradient(45deg, #00c853, #00e676);
+            margin-top: 15px;
+        }
+        
+        .start-btn:hover {
+            background: linear-gradient(45deg, #00e676, #00c853);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logout-btn {
+            background: linear-gradient(45deg, #ff1744, #f50057);
+            margin-top: 15px;
+        }
+        
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #f50057, #ff1744);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .iframe-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #e52e71;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .countdown-container {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .countdown-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .expiry-date {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 10px;
+        }
+        
+        #loginPage {
+            display: block;
+        }
+        
+        #startPage {
+            display: none;
+        }
+        
+        .user-info {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .error-message {
+            color: #ff5252;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
-
-<div class="header">
-  <h1><i class="fas fa-robot"></i> LEARNING SURYA  AI Chat</h1>
-  <div class="controls">
-    <button id="clearBtn" class="control-btn" title="Clear Chat">
-      <i class="fas fa-trash-alt"></i>
-      <span>CLEAR</span>
-    </button>
-    <button id="toggleModeBtn" class="control-btn" title="Toggle Dark Mode">
-      <i class="fas fa-moon"></i>
-      <span>DARK</span>
-    </button>
-  </div>
-</div>
-
-<div id="chatContainer">
-  <div id="chatBox"></div>
-  <div id="inputArea">
-    <input type="text" id="userInput" placeholder="message Surya Chat Ai..." autocomplete="off">
-    <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-  </div>
-</div>
-
-<script>
-// ====== CONFIG ======
-const GEMINI_API_KEY = 'AIzaSyBo1VVOCfFKrWl5w3Ew4UL7vHUEnmWgZt4';
-const INITIAL_PROMPT = "You are a helpful AI assistant. Provide clear, concise, and well-structured responses. Format your answers with proper markdown when appropriate (use **bold**, *italics*, `code`, ```code blocks```, and lists).";
-
-// ====== ELEMENTS ======
-const chatBox = document.getElementById('chatBox');
-const userInput = document.getElementById('userInput');
-const sendBtn = document.getElementById('sendBtn');
-const clearBtn = document.getElementById('clearBtn');
-const toggleModeBtn = document.getElementById('toggleModeBtn');
-
-// ====== STATE ======
-let chatHistory = [];
-let isWaiting = false;
-
-// ====== EVENTS ======
-sendBtn.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter' && !isWaiting) sendMessage();
-});
-clearBtn.addEventListener('click', clearChat);
-toggleModeBtn.addEventListener('click', toggleMode);
-
-// ====== FUNCTIONS ======
-function appendMessage(sender, message, isLoading = false) {
-  const div = document.createElement('div');
-  div.className = `message ${sender === 'You' ? 'user-message' : 'bot-message'}`;
-  
-  if (isLoading) {
-    div.innerHTML = `
-      <div class="loading">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-    `;
-  } else {
-    // Enhanced markdown formatting
-    let formatted = message
-      // Headers
-      .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-      // Bold and Italic
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      // Code blocks
-      .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
-      // Inline code
-      .replace(/`(.*?)`/g, '<code>$1</code>')
-      // Links
-      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
-      // Lists
-      .replace(/^\s*\*\s(.*$)/gm, '<li>$1</li>')
-      .replace(/^\s*-\s(.*$)/gm, '<li>$1</li>')
-      .replace(/^\s*\d\.\s(.*$)/gm, '<li>$1</li>')
-      // Line breaks
-      .replace(/\n/g, '<br>');
-    
-    // Handle lists
-    if (formatted.includes('<li>')) {
-      formatted = formatted.replace(/<li>.*?<\/li>/g, (match) => {
-        return match;
-      });
-      formatted = '<ul>' + formatted + '</ul>';
-    }
-    
-    div.innerHTML = formatted;
-    
-    // Add copy button for bot messages
-    if (sender !== 'You') {
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-btn';
-      copyBtn.title = 'Copy message';
-      copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-      copyBtn.addEventListener('click', () => {
-        copyToClipboard(message);
-        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-        setTimeout(() => {
-          copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-        }, 2000);
-      });
-      div.appendChild(copyBtn);
-    }
-  }
-  
-  chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight;
-  
-  // Animate the message
-  setTimeout(() => {
-    div.style.opacity = '1';
-    div.style.transform = 'translateY(0)';
-  }, 10);
-}
-
-function copyToClipboard(text) {
-  const textarea = document.createElement('textarea');
-  textarea.value = text;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
-}
-
-async function sendMessage() {
-  const message = userInput.value.trim();
-  if (message === '' || isWaiting) return;
-
-  appendMessage('You', message);
-  userInput.value = '';
-  isWaiting = true;
-  
-  const loadingDiv = document.createElement('div');
-  loadingDiv.className = 'message bot-message loading';
-  loadingDiv.innerHTML = `
-    <div class="loading">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+    <!-- Login Page -->
+    <div id="loginPage" class="holder">
+        <div class="box">
+            <img src="https://i.ibb.co/G4K2gbqb/Picsart-25-03-02-22-15-39-762.png" class="floating-img" alt="Logo">
+            <form id="loginForm">
+                <h2>WELCOME TO SURYA WEB</h2>
+                <div class="inputBox">
+                    <input type="password" id="key" required>
+                    <span>Enter Access Key</span>
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+                <input type="submit" class="btn login-btn" value="Login">
+            </form>
+            <div class="footer-text">Secure Access Only</div>
+        </div>
     </div>
-  `;
-  chatBox.appendChild(loadingDiv);
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  try {
-    const reply = await getGeminiResponse(message);
-    loadingDiv.classList.remove('loading');
     
-    // Format the reply with markdown
-    let formatted = reply
-      .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
-      .replace(/`(.*?)`/g, '<code>$1</code>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\n/g, '<br>');
-    
-    loadingDiv.innerHTML = formatted;
-    
-    // Add copy button
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'copy-btn';
-    copyBtn.title = 'Copy message';
-    copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-    copyBtn.addEventListener('click', () => {
-      copyToClipboard(reply);
-      copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-      setTimeout(() => {
-        copyBtn.innerHTML = '<i class="far fa-copy"></i>';
-      }, 2000);
-    });
-    loadingDiv.appendChild(copyBtn);
-    
-    // Update chat history
-    chatHistory.push({
-      role: "user",
-      parts: [{ text: message }]
-    }, {
-      role: "model", 
-      parts: [{ text: reply }]
-    });
-    
-    // Limit history
-    if (chatHistory.length > 12) {
-      chatHistory = chatHistory.slice(-12);
-    }
-  } catch (error) {
-    loadingDiv.innerHTML = `<span style="color: var(--error)">Error: ${error.message}</span>`;
-    console.error('API Error:', error);
-  } finally {
-    isWaiting = false;
-    userInput.focus();
-  }
-}
+    <!-- Start Page -->
+    <div id="startPage" class="holder">
+        <div class="box">
+            <img src="https://i.ibb.co/G4K2gbqb/Picsart-25-03-02-22-15-39-762.png" class="floating-img" alt="Logo">
+            <h2>ACCESS GRANTED</h2>
+            <div class="user-info" id="userInfo"></div>
+            <div class="countdown-container" id="countdownContainer">
+                <div class="countdown-title">Your access expires in:</div>
+                <div class="countdown-timer" id="countdownTimer"></div>
+                <div class="expiry-date" id="expiryDate"></div>
+            </div>
+            <button class="btn start-btn" id="startBtn">Start Now</button>
+            <button class="btn logout-btn" id="logoutBtn">Logout</button>
+            <div class="footer-text">Session Active</div>
+        </div>
+    </div>
 
-async function getGeminiResponse(prompt) {
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${GEMINI_API_KEY}`;
-  
-  const contents = [
-    {
-      role: "user",
-      parts: [{ text: INITIAL_PROMPT }]
-    },
-    {
-      role: "model",
-      parts: [{ text: "Understood. I'm ready to help!" }]
-    },
-    ...chatHistory,
-    {
-      role: "user",
-      parts: [{ text: prompt }]
-    }
-  ];
+    <!-- Content Frame -->
+    <div class="iframe-container" id="iframeContainer">
+        <button class="close-btn" id="closeBtn">Close</button>
+        <iframe id="contentFrame" src="about:blank"></iframe>
+    </div>
 
-  const payload = {
-    contents,
-    generationConfig: {
-      temperature: 0.7,
-      topP: 0.9,
-      maxOutputTokens: 2000
-    },
-    safetySettings: [
-      {
-        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-        threshold: "BLOCK_MEDIUM_AND_ABOVE"
-      }
-    ]
-  };
+    <audio id="backgroundMusic" loop>
+        <source src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
-
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.error?.message || 'API request failed');
-  }
-
-  const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
-}
-
-function clearChat() {
-  chatBox.innerHTML = '';
-  chatHistory = [];
-  // Add a welcome message
-  setTimeout(() => {
-    appendMessage('I AM SURYA AI', "Hello! IM SURYA AI  How can I assist you today?");
-  }, 300);
-}
-
-function toggleMode() {
-  document.body.classList.toggle('dark-mode');
-  
-  // Update the icon
-  const icon = toggleModeBtn.querySelector('i');
-  if (document.body.classList.contains('dark-mode')) {
-    icon.classList.remove('fa-moon');
-    icon.classList.add('fa-sun');
-    toggleModeBtn.querySelector('span').textContent = 'Light';
-  } else {
-    icon.classList.remove('fa-sun');
-    icon.classList.add('fa-moon');
-    toggleModeBtn.querySelector('span').textContent = 'Dark';
-  }
-  
-  // Animate the toggle
-  toggleModeBtn.style.transform = 'scale(0.95)';
-  setTimeout(() => {
-    toggleModeBtn.style.transform = 'scale(1)';
-  }, 200);
-}
-
-// Initial welcome message
-window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    appendMessage('SURYA BCA AI', "Welcome to SURYA AI Chat! I'm here to help you with any questions or tasks you have. How can I assist you today? DEVELOPER SURYA");
-    userInput.focus();
-  }, 500);
-});
-</script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const loginPage = document.getElementById('loginPage');
+            const startPage = document.getElementById('startPage');
+            const loginForm = document.getElementById('loginForm');
+            const keyInput = document.getElementById('key');
+            const startBtn = document.getElementById('startBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const countdownTimer = document.getElementById('countdownTimer');
+            const expiryDateElement = document.getElementById('expiryDate');
+            const userInfoElement = document.getElementById('userInfo');
+            const iframeContainer = document.getElementById('iframeContainer');
+            const contentFrame = document.getElementById('contentFrame');
+            const closeBtn = document.getElementById('closeBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const audio = document.getElementById('backgroundMusic');
+            
+            // Valid access keys
+            const validKeys = [
+                "wingo-7x9p-2k4r-8z3q", "wingo-1a2b-3c4d-5e6f", "wingo-9y8z-7x6w-5v4u",
+            "wingo-q1w2-e3r4-t5y6", "wingo-u7i8-o9p0-a1s2", "wingo-d3f4-g5h6-j7k8",
+            "wingo-l9m0-n1b2-v3c4", "wingo-x5z6-q7w8-s9e0", "wingo-r1t2-y3u4-i5o6",
+            "wingo-p7a8-s9d0-f1g2", "wingo-h3j4-k5l6-z7x8", "wingo-c9v0-b1n2-m3q4",
+            "wingo-w5e6-r7t8-y9u0", "wingo-i1o2-p3a4-s5d6", "wingo-f7g8-h9j0-k1l2",
+            "wingo-z3x4-c5v6-b7n8", "wingo-m9q0-w1e2-r3t4", "wingo-y5u6-i7o8-p9a0",
+            "wingo-s1d2-f3g4-h5j6", "wingo-k7l8-z9x0-c1v2", "wingo-b3n4-m5q6-w7e8",
+            "wingo-r9t0-y1u2-i3o4", "wingo-p5a6-s7d8-f9g0", "wingo-h1j2-k3l4-z5x6",
+            "wingo-c7v8-b9n0-m1q2", "wingo-w3e4-r5t6-y7u8", "wingo-i9o0-p1a2-s3d4",
+            "wingo-f5g6-h7j8-k9l0", "wingo-z1x2-c3v4-b5n6", "wingo-m7q8-w9e0-r1t2",
+            "wingo-y3u4-i5o6-p7a8", "wingo-s9d0-f1g2-h3j4", "wingo-k5l6-z7x8-c9v0",
+            "wingo-b1n2-m3q4-w5e6", "wingo-r7t8-y9u0-i1o2", "wingo-p3a4-s5d6-f7g8",
+            "wingo-h9j0-k1l2-z3x4", "wingo-c5v6-b7n8-m9q0", "wingo-w1e2-r3t4-y5u6",
+            "wingo-i7o8-p9a0-s1d2", "wingo-f3g4-h5j6-k7l8", "wingo-z9x0-c1v2-b3n4",
+            "wingo-m5q6-w7e8-r9t0", "wingo-y1u2-i3o4-p5a6", "wingo-s7d8-f9g0-h1j2",
+            "wingo-k3l4-z5x6-c7v8", "wingo-b9n0-m1q2-w3e4", "wingo-r5t6-y7u8-i9o0",
+            "wingo-p1a2-s3d4-f5g6", "wingo-h7j8-k9l0-z1x2", "wingo-c3v4-b5n6-m7q8",
+            "wingo-w9e0-r1t2-y3u4", "wingo-i5o6-p7a8-s9d0", "wingo-f1g2-h3j4-k5l6",
+            "wingo-z7x8-c9v0-b1n2", "wingo-m3q4-w5e6-r7t8", "wingo-y9u0-i1o2-p3a4",
+            "wingo-s5d6-f7g8-h9j0", "wingo-k1l2-z3x4-c5v6", "wingo-b7n8-m9q0-w1e2",
+            "wingo-r3t4-y5u6-i7o8", "wingo-p9a0-s1d2-f3g4", "wingo-h5j6-k7l8-z9x0",
+            "wingo-c1v2-b3n4-m5q6", "wingo-w7e8-r9t0-y1u2", "wingo-i3o4-p5a6-s7d8",
+            "wingo-f9g0-h1j2-k3l4", "wingo-z5x6-c7v8-b9n0", "wingo-m1q2-w3e4-r5t6",
+            "wingo-y7u8-i9o0-p1a2", "wingo-s3d4-f5g6-h7j8", "wingo-k9l0-z1x2-c3v4",
+            "wingo-b5n6-m7q8-w9e0", "wingo-r1t2-y3u4-i5o6", "wingo-p7a8-s9d0-f1g2",
+            "wingo-h3j4-k5l6-z7x8", "wingo-c9v0-b1n2-m3q4", "wingo-w5e6-r7t8-y9u0",
+            "wingo-i1o2-p3a4-s5d6", "wingo-f7g8-h9j0-k1l2", "wingo-z3x4-c5v6-b7n8",
+            "wingo-m9q0-w1e2-r3t4", "wingo-y5u6-i7o8-p9a0", "wingo-s1d2-f3g4-h5j6",
+            "wingo-k7l8-z9x0-c1v2", "wingo-b3n4-m5q6-w7e8", "wingo-r9t0-y1u2-i3o4",
+            "wingo-p5a6-s7d8-f9g0", "wingo-h1j2-k3l4-z5x6", "wingo-c7v8-b9n0-m1q2",
+            "wingo-w3e4-r5t6-y7u8", "wingo-i9o0-p1a2-s3d4", "wingo-f5g6-h7j8-k9l0",
+            "wingo-z1x2-c3v4-b5n6", "wingo-m7q8-w9e0-r1t2", "wingo-y3u4-i5o6-p7a8",
+            "wingo-s9d0-f1g2-h3j4", "wingo-k5l6-z7x8-c9v0", "wingo-b1n2-m3q4-w5e6",
+            "wingo-r7t8-y9u0-i1o2", "wingo-p3a4-s5d6-f7g8", "wingo-h9j0-k1l2-z3x4"
+            ];
+            
+            // Current active key and countdown interval
+            let activeKey = null;
+            let countdownInterval = null;
+            
+            // Initialize
+            keyInput.focus();
+            checkActiveSession();
+            
+            // Form submission handler
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const key = keyInput.value.trim();
+                
+                if (checkKey(key)) {
+                    activeKey = key;
+                    saveKeyData(key);
+                    showStartPage();
+                    keyInput.value = '';
+                    errorMessage.style.display = 'none';
+                } else {
+                    showError("Invalid access key! Please try again.");
+                    keyInput.value = '';
+                    keyInput.focus();
+                }
+            });
+            
+            // Start button click handler
+            startBtn.addEventListener('click', function() {
+                audio.play().catch(error => console.log("Audio play blocked:", error));
+                iframeContainer.style.display = 'block';
+                contentFrame.src = 'https://hackersurya12.github.io/home1/';
+            });
+            
+            // Logout button click handler
+            logoutBtn.addEventListener('click', function() {
+                closeIframe();
+                showLoginPage();
+            });
+            
+            // Close iframe button
+            closeBtn.addEventListener('click', closeIframe);
+            
+            // Check if key is valid
+            function checkKey(key) {
+                if (!validKeys.includes(key)) return false;
+                
+                const usedKeys = getUsedKeys();
+                const keyData = getKeyData();
+                
+                if (usedKeys.includes(key)) {
+                    // Key exists, check expiration
+                    if (keyData[key] && new Date(keyData[key].expiry) > new Date()) {
+                        return true;
+                    } else {
+                        showError("This key has expired!");
+                        return false;
+                    }
+                }
+                return true;
+            }
+            
+            // Save key data to localStorage
+            function saveKeyData(key) {
+                const usedKeys = getUsedKeys();
+                const keyData = getKeyData();
+                
+                // New key - store with expiry date (30 days from now)
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + 30);
+                
+                keyData[key] = {
+                    expiry: expiryDate.toISOString(),
+                    activated: new Date().toISOString()
+                };
+                localStorage.setItem('keyData', JSON.stringify(keyData));
+                
+                // Mark key as used if not already
+                if (!usedKeys.includes(key)) {
+                    usedKeys.push(key);
+                    localStorage.setItem('usedKeys', JSON.stringify(usedKeys));
+                }
+            }
+            
+            // Show start page with countdown
+            function showStartPage() {
+                loginPage.style.display = 'none';
+                startPage.style.display = 'block';
+                
+                const keyData = getKeyData();
+                const expiryDate = keyData[activeKey]?.expiry;
+                
+                if (!expiryDate) {
+                    showError("Error: Key data not found!");
+                    showLoginPage();
+                    return;
+                }
+                
+                // Display user info
+                userInfoElement.textContent = `Access Key: ${activeKey.substring(0, 4)}...${activeKey.slice(-4)}`;
+                
+                // Format and display expiry date
+                const expiry = new Date(expiryDate);
+                expiryDateElement.textContent = `Expires on: ${expiry.toLocaleDateString()} at ${expiry.toLocaleTimeString()}`;
+                
+                // Start countdown
+                startCountdown(expiryDate);
+            }
+            
+            // Show login page
+            function showLoginPage() {
+                activeKey = null;
+                if (countdownInterval) clearInterval(countdownInterval);
+                startPage.style.display = 'none';
+                loginPage.style.display = 'block';
+                keyInput.focus();
+            }
+            
+            // Start countdown timer
+            function startCountdown(expiryDate) {
+                // Clear any existing interval
+                if (countdownInterval) clearInterval(countdownInterval);
+                
+                updateCountdown(expiryDate); // Initial update
+                
+                // Update countdown every second
+                countdownInterval = setInterval(() => {
+                    updateCountdown(expiryDate);
+                }, 1000);
+            }
+            
+            // Update countdown display
+            function updateCountdown(expiryDate) {
+                const now = new Date().getTime();
+                const expiryTime = new Date(expiryDate).getTime();
+                const distance = expiryTime - now;
+                
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    countdownTimer.innerHTML = "EXPIRED";
+                    startBtn.disabled = true;
+                    return;
+                }
+                
+                // Calculate days, hours, minutes, seconds
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                countdownTimer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+            
+            // Close iframe
+            function closeIframe() {
+                iframeContainer.style.display = 'none';
+                contentFrame.src = 'about:blank';
+                audio.pause();
+            }
+            
+            // Show error message
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Check for active session on page load
+            function checkActiveSession() {
+                const usedKeys = getUsedKeys();
+                const keyData = getKeyData();
+                
+                for (const key of usedKeys) {
+                    if (keyData[key] && new Date(keyData[key].expiry) > new Date()) {
+                        activeKey = key;
+                        showStartPage();
+                        break;
+                    }
+                }
+            }
+            
+            // Helper functions for localStorage
+            function getUsedKeys() {
+                return JSON.parse(localStorage.getItem('usedKeys') || '[]');
+            }
+            
+            function getKeyData() {
+                return JSON.parse(localStorage.getItem('keyData') || '{}');
+            }
+        });
+    </script>
 </body>
 </html>
