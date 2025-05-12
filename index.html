@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingo Access Portal</title>
+    <title>AK Wingo Access Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
             font-family: 'El Messiri', sans-serif;
         }
         body {
-            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTniaWWFultO_a9z1Eh9oQB7Jl0mZDH9Cb3zllerYyIyW7XrLpw_EWYNCg9&s=10') no-repeat center center/cover;
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTin4N9xzGW6MifPLDpdx6khZptiORNXrjIudnaorRnp7sRczY8RQ-UUgE&s=10') no-repeat center center/cover;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -72,6 +72,28 @@
             }
         }
         
+        /* Updated Login Page Styles */
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .login-title {
+            font-size: 28px;
+            margin-bottom: 5px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .login-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+        }
+        
         .inputBox {
             position: relative;
             margin-bottom: 25px;
@@ -79,7 +101,7 @@
         
         .inputBox input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 15px 40px 15px 15px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
             outline: none;
@@ -91,7 +113,7 @@
         
         .inputBox input:focus {
             border-color: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
         
         .inputBox span {
@@ -114,9 +136,23 @@
             color: #fff;
         }
         
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .toggle-password:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
         .btn {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             border: none;
             color: white;
             font-size: 16px;
@@ -125,16 +161,42 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .login-btn {
             background: linear-gradient(45deg, #ff8a00, #e52e71);
+            position: relative;
+            overflow: hidden;
         }
         
         .login-btn:hover {
             background: linear-gradient(45deg, #e52e71, #ff8a00);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255,255,255,0.3) 0%,
+                rgba(255,255,255,0) 60%
+            );
+            transform: rotate(30deg);
+            transition: all 0.3s;
+        }
+        
+        .login-btn:hover::after {
+            left: 100%;
         }
         
         .start-btn {
@@ -194,6 +256,9 @@
             border-radius: 5px;
             cursor: pointer;
             z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .countdown-container {
@@ -202,6 +267,19 @@
             padding: 15px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
         }
         
         .countdown-title {
@@ -244,24 +322,197 @@
             margin-top: 10px;
             font-size: 14px;
             display: none;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .session-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .session-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .session-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .session-value {
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .key-strength {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .key-strength-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff5252, #ff8a00);
+            transition: width 0.3s;
+        }
+        
+        .key-hint {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .features-list {
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .feature-icon {
+            margin-right: 8px;
+            color: #00e676;
+        }
+        
+        /* New Login Decorative Elements */
+        .login-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .circle-1 {
+            width: 100px;
+            height: 100px;
+            top: -30px;
+            right: -30px;
+        }
+        
+        .circle-2 {
+            width: 60px;
+            height: 60px;
+            bottom: -20px;
+            left: -20px;
+        }
+        
+        .circle-3 {
+            width: 40px;
+            height: 40px;
+            top: 50%;
+            left: -15px;
+        }
+        
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+        }
+        
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .login-divider::before {
+            margin-right: 10px;
+        }
+        
+        .login-divider::after {
+            margin-left: 10px;
+        }
+        
+        .login-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        
+        .login-link {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .login-link:hover {
+            color: rgba(255, 255, 255, 0.9);
         }
     </style>
 </head>
 <body>
     <!-- Login Page -->
     <div id="loginPage" class="holder">
+        <div class="login-decoration">
+            <div class="decoration-circle circle-1"></div>
+            <div class="decoration-circle circle-2"></div>
+            <div class="decoration-circle circle-3"></div>
+        </div>
+        
         <div class="box">
-            <img src="https://media-hosting.imagekit.io/18f1b37b1f2345cf/Picsart_25-05-05_12-29-22-337.jpg?Expires=1841036484&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=aHRxX1AXQklSpf~-Xxy8rDgvcqXS4MxqQwAe-Aa2gwJ2qH53UmAb9ggv5noV1dhqt-pv~o-u8V-xe2ecsPi-X0mG0MhEXTlWCrTLT8aqK2qGmIqvyvTib9fzXrtUSQiS5o1Q4Q~kl3diWXOk4vGR5ZinM8qmC2CR-dfLy0j0NuRV6CiMnXF5fPAVIqARNsIWjrbUGwxsENE5VBbx~z1BqZfJLK5cwoo5kV0I8kMvGBIPcplbVRHbt8c7jT2qeKEk2eeAtiP--dKetR3MtIYFOju1F4W1saUGqtb2HvzWb9lAxL96UCRruCupwACZxPpyJfVrpG650pXG0waaxpd4oQ__" class="floating-img" alt="Logo">
+            <img src="https://i.ibb.co/G4K2gbqb/Picsart-25-03-02-22-15-39-762.png" class="floating-img" alt="Logo">
+            
+            <div class="login-header">
+                <h1 class="login-title">LOGIN AK AI</h1>
+                <p class="login-subtitle">Enter your access key below</p>
+            </div>
+            
             <form id="loginForm">
-                <h2>WELCOME TO SURYA WEB</h2>
                 <div class="inputBox">
                     <input type="password" id="key" required>
-                    <span>Enter Access Key</span>
+                    <span>Access Key</span>
+                    <i class="fas fa-key toggle-password" id="togglePassword"></i>
                 </div>
+                <div class="key-strength">
+                    <div class="key-strength-bar" id="keyStrengthBar"></div>
+                </div>
+                <div class="key-hint" id="keyHint">Format: wingo-xxxx-xxxx-xxxx</div>
                 <div class="error-message" id="errorMessage"></div>
-                <input type="submit" class="btn login-btn" value="Login">
+                
+                <div class="login-links">
+                    <a href="#" class="login-link"></a>
+                    <a href="https://www.instagram.com/surya_sivan_magan?igsh=M2FoYWViZjQ3NDN5" class="login-link">Buy key</a>
+                </div>
+                
+                <input type="submit" class="btn login-btn" value="LOGIN">
             </form>
-            <div class="footer-text">Secure Access Only</div>
+            
+            <div class="login-divider">SECURE CONNECTION</div>
+            
+            <div class="footer-text">ENCRYPTED BY SURYA • v2.4.1</div>
         </div>
     </div>
     
@@ -269,22 +520,56 @@
     <div id="startPage" class="holder">
         <div class="box">
             <img src="https://i.ibb.co/G4K2gbqb/Picsart-25-03-02-22-15-39-762.png" class="floating-img" alt="Logo">
-            <h2>ACCESS GRANTED</h2>
+            <h2>ACCESS GRANTED FROM ADMIN</h2>
             <div class="user-info" id="userInfo"></div>
+            
+            <div class="session-info">
+                <div class="session-row">
+                    <span class="session-label">Session Active:</span>
+                    <span class="session-value" id="sessionActiveTime"></span>
+                </div>
+                <div class="session-row">
+                    <span class="session-label">IP Address:</span>
+                    <span class="session-value" id="ipAddress">Loading...</span>
+                </div>
+            </div>
+            
             <div class="countdown-container" id="countdownContainer">
                 <div class="countdown-title">Your access expires in:</div>
                 <div class="countdown-timer" id="countdownTimer"></div>
                 <div class="expiry-date" id="expiryDate"></div>
             </div>
-            <button class="btn start-btn" id="startBtn">Start Now</button>
-            <button class="btn logout-btn" id="logoutBtn">Logout</button>
+            
+            <div class="features-list">
+                <div class="feature-item">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <span>Full Access to Premium Content</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <span>Encrypted Secure Connection</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle feature-icon"></i>
+                    <span>30 Days Unlimited Access</span>
+                </div>
+            </div>
+            
+            <button class="btn start-btn" id="startBtn">
+                <i class="fas fa-play"></i> Start Now
+            </button>
+            <button class="btn logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
             <div class="footer-text">Session Active</div>
         </div>
     </div>
 
     <!-- Content Frame -->
     <div class="iframe-container" id="iframeContainer">
-        <button class="close-btn" id="closeBtn">Close</button>
+        <button class="close-btn" id="closeBtn">
+            <i class="fas fa-times"></i> Close
+        </button>
         <iframe id="contentFrame" src="about:blank"></iframe>
     </div>
 
@@ -300,11 +585,16 @@
             const startPage = document.getElementById('startPage');
             const loginForm = document.getElementById('loginForm');
             const keyInput = document.getElementById('key');
+            const togglePassword = document.getElementById('togglePassword');
+            const keyStrengthBar = document.getElementById('keyStrengthBar');
+            const keyHint = document.getElementById('keyHint');
             const startBtn = document.getElementById('startBtn');
             const logoutBtn = document.getElementById('logoutBtn');
             const countdownTimer = document.getElementById('countdownTimer');
             const expiryDateElement = document.getElementById('expiryDate');
             const userInfoElement = document.getElementById('userInfo');
+            const sessionActiveTime = document.getElementById('sessionActiveTime');
+            const ipAddressElement = document.getElementById('ipAddress');
             const iframeContainer = document.getElementById('iframeContainer');
             const contentFrame = document.getElementById('contentFrame');
             const closeBtn = document.getElementById('closeBtn');
@@ -313,7 +603,7 @@
             
             // Valid access keys
             const validKeys = [
-                "wingo-7x9p-2k4r-8z3q", "wingo-1a2b-3c4d-5e6f", "wingo-9y8z-7x6w-5v4u",
+              "wingo-7x9p-2k4r-8z3q", "wingo-1a2b-3c4d-5e6f", "wingo-9y8z-7x6w-5v4u",
             "wingo-q1w2-e3r4-t5y6", "wingo-u7i8-o9p0-a1s2", "wingo-d3f4-g5h6-j7k8",
             "wingo-l9m0-n1b2-v3c4", "wingo-x5z6-q7w8-s9e0", "wingo-r1t2-y3u4-i5o6",
             "wingo-p7a8-s9d0-f1g2", "wingo-h3j4-k5l6-z7x8", "wingo-c9v0-b1n2-m3q4",
@@ -346,16 +636,51 @@
             "wingo-w3e4-r5t6-y7u8", "wingo-i9o0-p1a2-s3d4", "wingo-f5g6-h7j8-k9l0",
             "wingo-z1x2-c3v4-b5n6", "wingo-m7q8-w9e0-r1t2", "wingo-y3u4-i5o6-p7a8",
             "wingo-s9d0-f1g2-h3j4", "wingo-k5l6-z7x8-c9v0", "wingo-b1n2-m3q4-w5e6",
-            "wingo-r7t8-y9u0-i1o2", "wingo-p3a4-s5d6-f7g8", "wingo-h9j0-k1l2-z3x4"
+            "wingo-r7t8-y9u0-i1o2", "wingo-p3a4-s5d6-f7g8", "wingo-h9j0-k1l2-z3x4",
+            "wingo-c5v6-b7n8-m9q0", "wingo-w1e2-r3t4-y5u6", "wingo-i7o8-p9a0-s1d2",
+            "wingo-f3g4-h5j6-k7l8", "wingo-z9x0-c1v2-b3n4", "wingo-m5q6-w7e8-r9t0",
+            "wingo-y1u2-i3o4-p5a6", "wingo-s7d8-f9g0-h1j2", "wingo-k3l4-z5x6-c7v8",
+            "wingo-b9n0-m1q2-w3e4", "wingo-r5t6-y7u8-i9o0", "wingo-p1a2-s3d4-f5g6",
+            "wingo-h7j8-k9l0-z1x2", "wingo-c3v4-b5n6-m7q8", "wingo-w9e0-r1t2-y3u4",
+            "wingo-i5o6-p7a8-s9d0", "wingo-f1g2-h3j4-k5l6", "wingo-z7x8-c9v0-b1n2",
+            "wingo-m3q4-w5e6-r7t8", "wingo-y9u0-i1o2-p3a4", "wingo-s5d6-f7g8-h9j0",
+            "wingo-k1l2-z3x4-c5v6", "wingo-b7n8-m9q0-w1e2", "wingo-r3t4-y5u6-i7o8",
+            "wingo-p9a0-s1d2-f3g4", "wingo-h5j6-k7l8-z9x0", "wingo-c1v2-b3n4-m5q6",
+            "wingo-w7e8-r9t0-y1u2", "wingo-i3o4-p5a6-s7d8", "wingo-f9g0-h1j2-k3l4",
+            "wingo-z5x6-c7v8-b9n0", "wingo-m1q2-w3e4-r5t6", "wingo-y7u8-i9o0-p1a2",
+            "wingo-s3d4-f5g6-h7j8", "wingo-k9l0-z1x2-c3v4", "wingo-b5n6-m7q8-w9e0"
             ];
             
             // Current active key and countdown interval
             let activeKey = null;
             let countdownInterval = null;
+            let sessionStartTime = null;
+            let sessionTimer = null;
             
             // Initialize
             keyInput.focus();
             checkActiveSession();
+            fetchIPAddress();
+            
+            // Password visibility toggle
+            togglePassword.addEventListener('click', function() {
+                const type = keyInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                keyInput.setAttribute('type', type);
+                this.classList.toggle('fa-key');
+                this.classList.toggle('fa-eye');
+            });
+            
+            // Key input validation
+            keyInput.addEventListener('input', function() {
+                const key = this.value;
+                updateKeyStrength(key);
+                
+                if (key.length > 0 && key.includes('wingo-')) {
+                    keyHint.style.display = 'block';
+                } else {
+                    keyHint.style.display = 'none';
+                }
+            });
             
             // Form submission handler
             loginForm.addEventListener('submit', function(event) {
@@ -390,6 +715,27 @@
             
             // Close iframe button
             closeBtn.addEventListener('click', closeIframe);
+            
+            // Update key strength indicator
+            function updateKeyStrength(key) {
+                let strength = 0;
+                
+                if (key.length > 0) strength += 10;
+                if (key.length >= 5) strength += 20;
+                if (key.includes('wingo-')) strength += 30;
+                if (key.length >= 15) strength += 20;
+                if (validKeys.includes(key)) strength = 100;
+                
+                keyStrengthBar.style.width = strength + '%';
+                
+                if (strength < 30) {
+                    keyStrengthBar.style.background = '#ff5252';
+                } else if (strength < 70) {
+                    keyStrengthBar.style.background = '#ff8a00';
+                } else {
+                    keyStrengthBar.style.background = '#00e676';
+                }
+            }
             
             // Check if key is valid
             function checkKey(key) {
@@ -455,12 +801,31 @@
                 
                 // Start countdown
                 startCountdown(expiryDate);
+                
+                // Start session timer
+                sessionStartTime = new Date();
+                updateSessionTimer();
+                sessionTimer = setInterval(updateSessionTimer, 1000);
+            }
+            
+            // Update session active time
+            function updateSessionTimer() {
+                if (!sessionStartTime) return;
+                
+                const now = new Date();
+                const diff = now - sessionStartTime;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                sessionActiveTime.textContent = `${hours}h ${minutes}m ${seconds}s`;
             }
             
             // Show login page
             function showLoginPage() {
                 activeKey = null;
                 if (countdownInterval) clearInterval(countdownInterval);
+                if (sessionTimer) clearInterval(sessionTimer);
                 startPage.style.display = 'none';
                 loginPage.style.display = 'block';
                 keyInput.focus();
@@ -529,6 +894,18 @@
                         break;
                     }
                 }
+            }
+            
+            // Fetch IP address
+            function fetchIPAddress() {
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        ipAddressElement.textContent = data.ip;
+                    })
+                    .catch(() => {
+                        ipAddressElement.textContent = 'Unknown';
+                    });
             }
             
             // Helper functions for localStorage
